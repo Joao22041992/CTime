@@ -235,3 +235,39 @@ button.btn-show-answer:hover {
   background-color: var(--accent);
   color: white;
 }
+
+/* --- Responsividade (Mobile e Tablets) --- */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column; /* Empilha sidebar e conteúdo */
+    height: auto; /* Remove altura fixa */
+    overflow-y: auto; /* Permite rolagem na página inteira */
+  }
+
+  aside {
+    width: 100%; /* Sidebar ocupa toda a largura */
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+  }
+
+  main {
+    padding: 20px; /* Reduz padding em telas pequenas */
+    overflow-y: visible; /* Remove rolagem interna */
+  }
+
+  nav button {
+    padding: 12px 15px; /* Botões um pouco mais compactos */
+  }
+
+  .user-stats {
+    margin-top: 0; /* Remove empurrão para baixo em layout fluido */
+    border-top: 1px solid #333;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem; /* Títulos menores */
+  }
+}
