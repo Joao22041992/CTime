@@ -236,6 +236,42 @@ button.btn-show-answer:hover {
   color: white;
 }
 
+/* Estilo para exercícios de preencher lacuna */
+.code-fill {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-family: "Consolas", monospace;
+  font-size: 1.1rem;
+}
+
+/* --- Menu Hambúrguer --- */
+#menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000; /* Fica acima de tudo */
+  background-color: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+#menu-toggle:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Classe para esconder a sidebar quando o menu for alternado */
+body.menu-hidden aside {
+  display: none;
+}
+
 /* --- Responsividade (Mobile e Tablets) --- */
 @media (max-width: 768px) {
   body {
