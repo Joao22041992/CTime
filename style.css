@@ -2,7 +2,7 @@
   --bg-dark: #1e1e1e;
   --bg-panel: #252526;
   --text-main: #d4d4d4;
-  --accent: #007acc;
+  --accent: #007acccd;
   --success: #28a745;
   --error: #dc3545;
   --code-bg: #101010;
@@ -10,6 +10,14 @@
   --string: #ce9178;
   --function: #dcdcaa;
   --number: #b5cea8;
+  /* Cores Vibrantes / High Intensity para o Quadro Negro */
+  --neon-bg: #050505; /* Preto Profundo */
+  --neon-text: #ffffff;
+  --neon-keyword: #0073ff; /* Ciano Ultra */
+  --neon-string: #e03535; /* Laranja Neon */
+  --neon-function: #d0d0d0; /* Amarelo Laser */
+  --neon-number: #00FF00; /* Verde Hacker */
+  --neon-comment: #ffffff; /* Azul Comentário Vibrante */
 }
 
 * {
@@ -236,6 +244,26 @@ button.btn-show-answer:hover {
   color: white;
 }
 
+.btn-refresh-intro {
+  background-color: #37373d;
+  color: var(--text-main);
+  border: 1px solid #444;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-refresh-intro:hover {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 122, 204, 0.3);
+}
+
 /* Estilo para exercícios de preencher lacuna */
 .code-fill {
   display: flex;
@@ -272,6 +300,52 @@ body.menu-hidden aside {
   display: none;
 }
 
+/* --- Ícones de Contato (Topo Direito) --- */
+#contact-icons {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+.contact-btn {
+  background-color: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid #333;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.contact-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.contact-btn:hover {
+  transform: scale(1.1);
+  color: white;
+}
+
+.contact-btn.email:hover {
+  background-color: #EA4335; /* Vermelho estilo Gmail */
+}
+
+.contact-btn.whatsapp:hover {
+  background-color: #25D366; /* Verde do WhatsApp */
+}
+
 /* --- Responsividade (Mobile e Tablets) --- */
 @media (max-width: 768px) {
   body {
@@ -306,4 +380,253 @@ body.menu-hidden aside {
   h1 {
     font-size: 1.5rem; /* Títulos menores */
   }
+}
+
+/* --- BLACKBOARD MODAL (Quadro Negro) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.blackboard-container {
+  background-color: var(--neon-bg);
+  border: 4px solid #333;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Consolas", monospace;
+}
+
+.blackboard-header {
+  background: #1a1a1a;
+  padding: 15px;
+  border-bottom: 2px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.blackboard-content {
+  padding: 30px;
+  color: var(--neon-text);
+  font-family: "Consolas", monospace; /* Fonte Familiar Solicitada */
+  font-size: 10.5pt; /* Tamanho 10,5 */
+  font-weight: bold; /* Negrito */
+  line-height: 1.6;
+  white-space: pre-wrap; /* Mantém formatação do código */
+}
+
+/* Inputs dentro do quadro negro */
+.blackboard-input {
+  background: #111;
+  border: 1px solid #444;
+  color: var(--neon-string);
+  font-family: "Consolas", monospace;
+  font-weight: bold;
+  font-size: 10.5pt;
+  padding: 5px;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+
+.blackboard-input:focus {
+  border-color: var(--neon-keyword);
+  box-shadow: 0 0 10px var(--neon-keyword);
+}
+
+.blackboard-footer {
+  padding: 20px;
+  background: #111;
+  border-top: 2px solid #333;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-compile {
+  background: var(--neon-number); /* Verde */
+  color: black;
+  border: none;
+  padding: 10px 25px;
+  font-family: "Consolas", monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  transition: transform 0.2s;
+}
+
+.btn-compile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.6);
+}
+
+/* High Intensity Syntax Highlight Classes */
+.neon-k { color: var(--neon-keyword); text-shadow: 0 0 2px rgba(0, 255, 255, 0.3); }
+.neon-s { color: var(--neon-string); text-shadow: 0 0 2px rgba(255, 85, 0, 0.3); }
+.neon-f { color: var(--neon-function); text-shadow: 0 0 2px rgba(255, 255, 0, 0.3); }
+.neon-n { color: var(--neon-number); text-shadow: 0 0 2px rgba(0, 255, 0, 0.3); }
+.neon-c { color: var(--neon-comment); font-style: italic; }
+.neon-bg-success {
+  border-color: var(--neon-number);
+  box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
+}
+
+/* --- WIDGET DE DESPERTADOR --- */
+#timer-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-panel);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  user-select: none; /* Impede seleção de texto no widget */
+}
+
+#timer-display {
+  font-family: 'Consolas', monospace;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--neon-keyword);
+  text-shadow: 0 0 5px rgba(0, 115, 255, 0.5);
+  cursor: move; /* Indica que o elemento pode ser movido */
+}
+
+.timer-controls button {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 3px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.timer-controls button:hover {
+  color: var(--accent);
+  transform: scale(1.2);
+}
+
+/* Modal de Alarme */
+.alarm-popup {
+  background: linear-gradient(135deg, #1a1a1a, #000);
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid var(--neon-string);
+  box-shadow: 0 0 50px var(--neon-string);
+  text-align: center;
+  animation: shake 0.5s infinite;
+}
+
+.alarm-popup h2 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px var(--neon-string);
+}
+
+.alarm-popup button {
+  background: var(--neon-string);
+  color: black;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  font-family: "Consolas", monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(224, 53, 53, 0.4);
+  transition: transform 0.2s;
+}
+
+.alarm-popup button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(224, 53, 53, 0.6);
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* --- WIDGET DE ÁUDIO --- */
+#audio-widget {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* Canto oposto ao despertador */
+  background: var(--bg-panel);
+  border: 1px solid #444;
+  border-radius: 30px; /* Mais arredondado */
+  padding: 8px 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+  user-select: none; /* Impede seleção de texto ao arrastar */
+}
+
+#audio-widget button {
+  background: none;
+  border: none;
+  color: var(--neon-keyword); /* Azul Neon */
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#audio-widget button:hover {
+  transform: scale(1.2);
+  color: var(--accent);
+}
+
+#audio-vol-slider {
+  width: 80px;
+  cursor: pointer;
+}
+
+#audio-drag-handle {
+  cursor: move; /* Cursor de movimento */
+  padding-right: 5px;
 }
