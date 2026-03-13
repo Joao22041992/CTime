@@ -394,6 +394,113 @@ body.menu-hidden aside {
   h1 {
     font-size: 1.5rem; /* Títulos menores */
   }
+
+  /* Widgets em telas pequenas */
+  #timer-widget {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  #timer-display {
+    font-size: 1.2rem;
+  }
+
+  .timer-controls button {
+    font-size: 0.9rem;
+  }
+
+  #audio-widget {
+    bottom: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  #audio-widget button {
+    font-size: 1.1rem;
+  }
+
+  #audio-vol-slider {
+    width: 60px;
+  }
+
+  /* Menu hambúrguer sempre visível em mobile */
+  #menu-toggle {
+    display: block;
+  }
+
+  /* Contact icons menores */
+  .contact-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* --- Responsividade (Tablets) --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+  aside {
+    width: 220px; /* Sidebar um pouco menor */
+  }
+
+  main {
+    padding: 30px; /* Padding médio */
+  }
+
+  nav button {
+    padding: 14px 18px; /* Botões ligeiramente menores */
+  }
+
+  .user-stats {
+    padding: 18px;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.8rem; /* Títulos um pouco menores */
+  }
+
+  /* Widgets ajustados para tablets */
+  #timer-widget {
+    bottom: 15px;
+    right: 15px;
+    padding: 9px 14px;
+  }
+
+  #audio-widget {
+    bottom: 15px;
+    left: 15px;
+    padding: 7px 14px;
+  }
+
+  /* Contact icons padrão */
+}
+
+/* --- Responsividade (Desktops e Notebooks) --- */
+@media (min-width: 1025px) {
+  /* Mantém o layout original para telas grandes */
+  aside {
+    width: 250px;
+  }
+
+  main {
+    padding: 40px;
+  }
+
+  /* Widgets em posições padrão */
+  #timer-widget {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  #audio-widget {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  /* Contact icons maiores se necessário, mas clamp já cuida */
 }
 
 /* --- BLACKBOARD MODAL (Quadro Negro) --- */
