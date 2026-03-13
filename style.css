@@ -643,6 +643,63 @@ body.menu-hidden aside {
   }
 }
 
+/* --- EFEITO DE FOGOS DE ARTIFÍCIO NEON --- */
+.fireworks {
+  position: relative;
+  overflow: visible;
+}
+
+.fireworks::before {
+  content: "🎆";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 4rem;
+  color: var(--neon-keyword);
+  text-shadow:
+    0 0 10px var(--neon-keyword),
+    0 0 20px var(--neon-string),
+    0 0 30px var(--neon-function),
+    0 0 40px var(--neon-number);
+  animation: fireworks-burst 1.5s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.fireworks::after {
+  content: "✨";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 3rem;
+  color: var(--neon-string);
+  text-shadow:
+    0 0 10px var(--neon-string),
+    0 0 20px var(--neon-function),
+    0 0 30px var(--neon-number),
+    0 0 40px var(--neon-keyword);
+  animation: fireworks-burst 1.5s ease-out 0.3s forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes fireworks-burst {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3) rotate(360deg);
+    opacity: 0;
+  }
+}
+
 /* --- WIDGET DE ÁUDIO --- */
 #audio-widget {
   position: fixed;
@@ -683,30 +740,4 @@ body.menu-hidden aside {
 #audio-drag-handle {
   cursor: move; /* Cursor de movimento */
   padding-right: 5px;
-}
-
-/* --- EFEITO DE FOGOS DE ARTIFÍCIO --- */
-@keyframes firework-explode {
-  0% {
-    transform: translateY(0px) scale(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(var(--random-x, 0px), var(--random-y, -200px)) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--random-x, 0px), var(--random-y, -400px)) scale(0);
-    opacity: 0;
-  }
-}
-
-.firework-particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  animation: firework-explode 2s ease-out forwards;
-  pointer-events: none;
-  z-index: 9999;
 }
