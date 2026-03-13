@@ -1341,7 +1341,11 @@ window.checkAnswer = function (unitIdx, exIdx) {
       updateUserStats();
     }
     feedbackEl.innerHTML = `<span class="status-correct">Correto!</span> Muito bem.`;
-    launchFireworks(); // Lança fogos de artifício
+    // Adiciona efeito de fogos de artifício
+    cardEl.classList.add("fireworks");
+    setTimeout(() => {
+      cardEl.classList.remove("fireworks");
+    }, 2000);
   } else {
     exercise.incorrectAttempts++;
     if (exercise.incorrectAttempts >= 3 && !exercise.completed) {
@@ -1364,33 +1368,6 @@ window.checkAnswer = function (unitIdx, exIdx) {
     feedbackEl.innerHTML = msg;
   }
 };
-
-// --- EFEITO DE FOGOS DE ARTIFÍCIO ---
-function launchFireworks() {
-  const neonColors = [
-    "var(--neon-keyword)", // #0073ff
-    "var(--neon-string)", // #e03535
-    "var(--neon-function)", // #d0d0d0
-    "var(--neon-number)", // #00ff00
-    "#ff00ff", // magenta neon
-    "#00ffff", // ciano
-  ];
-
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement("div");
-    particle.className = "firework-particle";
-    particle.style.backgroundColor =
-      neonColors[Math.floor(Math.random() * neonColors.length)];
-    particle.style.left = Math.random() * window.innerWidth + "px";
-    particle.style.top = window.innerHeight + "px";
-    const randomX = (Math.random() - 0.5) * 400; // -200 to 200
-    const randomY = -Math.random() * 400 - 100; // -100 to -500
-    particle.style.setProperty("--random-x", randomX + "px");
-    particle.style.setProperty("--random-y", randomY + "px");
-    document.body.appendChild(particle);
-    setTimeout(() => particle.remove(), 2000);
-  }
-}
 
 window.showAnswer = function (unitIdx, exIdx) {
   const exercise = courseData[unitIdx].exercises[exIdx];
@@ -1566,6 +1543,13 @@ function runBlackboardCompiler() {
         // Atualiza a UI da lista principal
         loadUnit(currentBbUnit);
       }
+
+      // Adiciona efeito de fogos de artifício no quadro negro
+      const bbContainer = document.querySelector(".blackboard-container");
+      bbContainer.classList.add("fireworks");
+      setTimeout(() => {
+        bbContainer.classList.remove("fireworks");
+      }, 2000);
     }, 800);
   } else {
     // Erro visual
