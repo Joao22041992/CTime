@@ -1,84 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>C-Time - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-     <link rel="icon" type="image/png" href="imagenslogo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="imagenslogo.png" />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            min-height: 100vh;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .logo-glow {
-            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
-        }
-        .input-field {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        .input-field:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #3b82f6;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-        }
-        .btn-gradient {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-            transition: all 0.3s;
-        }
-        .btn-gradient:hover:not(:disabled) {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .btn-gradient:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        min-height: 100vh;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .logo-glow {
+        filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
+      }
+      .input-field {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+      .input-field:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #3b82f6;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+      }
+      .btn-gradient {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+        transition: all 0.3s;
+      }
+      .btn-gradient:hover:not(:disabled) {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      .btn-gradient:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     </style>
-</head>
-<body class="flex items-center justify-center p-4">
+  </head>
+  <body class="flex items-center justify-center p-4">
+    <div class="w-full max-w-lg">
+      <!-- Logo -->
+      <div class="flex flex-col items-center mb-4">
+        <img
+          src="1000038421.png"
+          alt="C-Time Logo"
+          class="w-64 h-auto logo-glow mb-2"
+          onerror="
+            this.src = 'https://via.placeholder.com/256x128?text=C-Time+Logo'
+          "
+        />
+        <p class="text-blue-300 text-sm font-medium tracking-widest uppercase">
+          Gerenciamento de Tempo
+        </p>
+      </div>
 
-    <div class="w-full max-w-md">
-        <!-- Logo -->
-        <div class="flex flex-col items-center mb-8">
-            <img src="1000038421.png" alt="C-Time Logo" class="w-64 h-auto logo-glow mb-2" onerror="this.src='https://via.placeholder.com/256x128?text=C-Time+Logo'">
-            <p class="text-blue-300 text-sm font-medium tracking-widest uppercase">Gerenciamento de Tempo</p>
+      <!-- Alertas -->       
+      <div
+        id="message-box"
+        class="mb-4 p-4 rounded-lg hidden text-center text-sm font-medium"
+      ></div>
+             
+      <!-- Card de Login -->       
+      <div class="glass-card rounded-2xl p-6 shadow-2xl">
+                   
+        <h2 class="text-2xl font-bold text-white mb-4 text-center">
+          Entrar no Sistema
+        </h2>
+                               
+        <form onsubmit="handleLogin(event)">
+                         
+          <div class="mb-4">
+                               
+            <label class="block text-gray-400 text-sm mb-2" for="user"
+              >Usuário</label
+            >                   
+            <input
+              type="text"
+              id="user"
+              required
+              class="input-field w-full px-4 py-3 rounded-lg text-white"
+              placeholder="admin"
+            />               
+          </div>
+                                         
+          <div class="mb-4">
+                               
+            <label class="block text-gray-400 text-sm mb-2" for="password"
+              >Senha</label
+            >                   
+            <input
+              type="password"
+              id="password"
+              required
+              class="input-field w-full px-4 py-3 rounded-lg text-white"
+              placeholder="••••••••"
+            />               
+          </div>
+                         
+          <button
+            type="submit"
+            id="btn-submit"
+            class="btn-gradient w-full py-3 rounded-lg text-white font-semibold shadow-lg mb-4"
+          >
+                                Acessar               </button
+          >           
+        </form>
+                   
+        <div class="text-center">
+                         
+          <p class="text-gray-400 text-sm">
+                                Não tem uma conta?                    
+            <a href="#" class="text-blue-400 font-medium hover:underline ml-1"
+              >Solicitar acesso</a
+            >               
+          </p>
+                     
         </div>
+               
+      </div>
+         
+    </div>
+       
+    <script>
+      function handleLogin(event) {
+        event.preventDefault();
+        const btn = document.getElementById("btn-submit");
+        const messageBox = document.getElementById("message-box");
+        const user = document.getElementById("user").value;
+        const pass = document.getElementById("password").value;
+        btn.innerText = "Verificando...";
+        btn.disabled = true;
+        messageBox.classList.add("hidden");
+        setTimeout(() => {
+          if (user === "admin" && pass === "admin") {
+            messageBox.innerText = "Acesso permitido! Direcionando...";
+            messageBox.className =
+              "mb-4 p-4 rounded-lg text-center text-sm font-medium bg-green-500/20 text-green-400 border border-green-500/50";
+            messageBox.classList.remove("hidden"); // Redirecionamento após 1 segundo
+            //
 
-        <!-- Alertas -->  
-               <div id="message-box" class="mb-4 p-4 rounded-lg hidden text-center text-sm font-medium"></div>
-        <!-- Card de Login -->    
-    <div class="glass-card rounded-2xl p-8 shadow-2xl">        
-        <h2 class="text-2xl font-bold text-white mb-6 text-center">Entrar no Sistema</h2>        
-                    <form onsubmit="handleLogin(event)">     
-                   <div class="mb-4">              
-                  <label class="block text-gray-400 text-sm mb-2" for="user">Usuário</label>                    <input type="text" id="user" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="admin">                </div>                                <div class="mb-6">                    <label class="block text-gray-400 text-sm mb-2" for="password">Senha</label>                    <input type="password" id="password" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="••••••••">                </div>
-                <button type="submit" id="btn-submit" class="btn-gradient w-full py-3 rounded-lg text-white font-semibold shadow-lg mb-6">                    Acessar                </button>            </form>
-            <div class="text-center">          
-          <p class="text-gray-400 text-sm">                    Não tem uma conta?          
-                   <a href="#" class="text-blue-400 font-medium hover:underline ml-1">Solicitar acesso</a>                </p>    
-                </div>  
-          </div>  
-  </div>
-    <script>       
- function handleLogin(event) {            event.preventDefault();                        const btn = document.getElementById('btn-submit');            const messageBox = document.getElementById('message-box');            const user = document.getElementById('user').value;       
-   const pass = document.getElementById('password').value;
-            btn.innerText = "Verificando...";   
-   btn.disabled = true;            messageBox.classList.add('hidden');
-            setTimeout(() => {                if (user === "admin" && pass === "admin") {                  
-      messageBox.innerText = "Acesso permitido! Direcionando...";                    messageBox.className = "mb-4 p-4 rounded-lg text-center text-sm font-medium bg-green-500/20 text-green-400 border border-green-500/50";                    messageBox.classList.remove('hidden');
-                    // Redirecionamento após 1 segundo
-// 
-
-                    setTimeout(() => {                    
-        window.location.href = "Pagina_inicial.html";                    }, 1000);                } else {                    messageBox.innerText = "Usuário ou senha incorretos.";                    messageBox.className = "mb-4 p-4 rounded-lg text-center text-sm font-medium bg-red-500/20 text-red-400 border border-red-500/50";                    messageBox.classList.remove('hidden');                    btn.innerText = "Acessar";                    btn.disabled = false;                }            }, 800);        }    </script></body></html>
+            setTimeout(() => {
+              window.location.href = "Pagina_inicial.html";
+            }, 1000);
+          } else {
+            messageBox.innerText = "Usuário ou senha incorretos.";
+            messageBox.className =
+              "mb-4 p-4 rounded-lg text-center text-sm font-medium bg-red-500/20 text-red-400 border border-red-500/50";
+            messageBox.classList.remove("hidden");
+            btn.innerText = "Acessar";
+            btn.disabled = false;
+          }
+        }, 800);
+      }
+    </script>
+  </body>
+</html>
