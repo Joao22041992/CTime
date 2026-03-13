@@ -1400,6 +1400,21 @@ window.showAnswer = function (unitIdx, exIdx) {
   if (showAnswerContainer) showAnswerContainer.innerHTML = "";
 };
 
+// --- FUNÇÃO UTILITÁRIA PARA HIGHLIGHT NEON ---
+function highlightNeonCode(text) {
+  // A ordem é importante: strings primeiro, depois comentários, etc.
+  return text
+    .replace(/(".*?")/g, '<span class="neon-s">$1</span>') // 1. Strings
+    .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>') // 2. Comentários
+    .replace(
+      /\b(int|float|char|void|if|else|return|printf|scanf|#include)\b/g,
+      '<span class="neon-k">$1</span>',
+    ) // 3. Keywords
+    .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>') // 4. Números
+    .replace(/&(?!(?:lt|gt|amp|quot|apos);)/g, '<span class="neon-function">&</span>') // 5. Endereço (Ignora entities HTML)
+    .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>'); // 6. Pontuação
+}
+
 // --- NOVA LÓGICA DO QUADRO NEGRO (BLACKBOARD) ---
 
 function createBlackboardModal() {
@@ -1451,27 +1466,11 @@ window.openBlackboard = function (unitIdx, exIdx) {
   if (ex.type === "fill") {
     let parts = ex.codeSnippet.split("___");
     // Aplica cores neon nas partes estáticas (regex aprimorada para o quadro negro)
-    const highlight = (text) => {
-      return text
-        .replace(/(".*?")/g, '<span class="neon-s">$1</span>') // 1. Strings (Primeiro para evitar conflito com atributos HTML)
-        .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>') // 2. Comentários
-        .replace(
-          /\b(int|float|char|void|if|else|return|printf|scanf)\b/g,
-          '<span class="neon-k">$1</span>',
-        ) // 3. Keywords
-        .replace(/(#include)/g, '<span class="neon-k">$1</span>')
-        .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>') // 4. Números
-        .replace(
-          /&(?!(?:lt|gt|amp|quot|apos);)/g,
-          '<span class="neon-function">&</span>',
-        ) // 5. Endereço (Ignora entities HTML)
-        .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>'); // 6. Pontuação (Removido ; para não quebrar entidades &lt;)
-    };
 
-    codeDisplay += `<span>${highlight(parts[0].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</span>`;
+    codeDisplay += `<span>${highlightNeonCode(parts[0].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</span>`;
     codeDisplay += `<input type="text" id="bb-input" class="blackboard-input" autocomplete="off" placeholder="?" style="width: 80px; text-align: center;">`;
     if (parts[1])
-      codeDisplay += `${highlight(parts[1].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}`;
+      codeDisplay += `${highlightNeonCode(parts[1].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}`;
     codeDisplay += `</span>`;
   } else if (ex.type === "code") {
     codeDisplay += `<div style="color: #888; margin-bottom: 10px;">// ${ex.question}</div>`;
@@ -1569,24 +1568,11 @@ function runBlackboardCompiler() {
 
 // Renderiza o código final com syntax highlighting
 function simulateCompilationSuccess(container, userValue, skipAnim) {
-  const highlight = (text) => {
-    return text
-      .replace(/(".*?")/g, '<span class="neon-s">$1</span>')
-      .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>')
-      .replace(
-        /\b(int|float|char|void|if|else|return|printf|scanf)\b/g,
-        '<span class="neon-k">$1</span>',
-      )
-      .replace(/(#include)/g, '<span class="neon-k">$1</span>')
-      .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>')
-      .replace(/(&)/g, '<span class="neon-function">$1</span>')
-      .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>');
-  };
 
   const html = `
     <div style="font-family:'Consolas'; color: white;">
         <div style="margin-bottom: 10px; color: var(--neon-function);">// COMPILAÇÃO BEM SUCEDIDA</div>
-        <div style="white-space: pre-wrap; color: var(--neon-text); font-size: 10.5pt; font-weight:bold;">${highlight(userValue.replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</div>
+        <div style="white-space: pre-wrap; color: var(--neon-text); font-size: 10.5pt; font-weight:bold;">${highlightNeonCode(userValue.replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</div>
         <div style="margin-top:20px; color: var(--neon-number); border-top: 1px dashed #333; padding-top:10px;">
             > Program exited with code 0.<br>
             > <span style="animation: blink 1s infinite;">_</span>
@@ -1628,12 +1614,9 @@ function createAudioPlayer() {
 
   // Tratamento de erro caso o arquivo não exista
   audio.addEventListener("error", (e) => {
-    alert(
-      "Erro: O arquivo 'videoplayback (1).m4a' não foi encontrado na pasta do projeto.",
-    );
-    alert(
-      "Erro: O arquivo 'musica.m4a' não foi encontrado. Verifique se o arquivo está na pasta correta.",
-    );
+    // O evento 'error' é disparado se o navegador não conseguir tocar nenhuma das fontes.
+    // Não é possível saber qual falhou, então mostramos uma mensagem genérica no console.
+    console.error("Erro ao carregar o áudio. Verifique se os arquivos de áudio (ex: 'musica.m4a') estão na pasta correta.");
   });
 
   // Eventos
