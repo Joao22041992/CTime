@@ -2,7 +2,8 @@
 
 // Banco de Unidades Introdutórias - para permitir a atualização
 const introUnitBank = [
-  { // Unidade 0 - Versão 1: Calculadora de IMC (Original)
+  {
+    // Unidade 0 - Versão 1: Calculadora de IMC (Original)
     id: 0,
     title: "Introdução: Desafio do IMC",
     theory: `
@@ -64,65 +65,72 @@ const introUnitBank = [
             </div>
         `,
     exercises: [
-      { 
-        type: "fill", 
-        question: "Inclua a biblioteca padrão de entrada e saída.", 
-        codeSnippet: `#include &lt;___&gt; // Biblioteca de Entrada e Saída\n\nint main() {\n    // Início do programa\n    return 0;\n}`, 
-        answer: "stdio.h", 
-        feedback: "A biblioteca stdio.h é essencial para usar printf e scanf." 
+      {
+        type: "fill",
+        question: "Inclua a biblioteca padrão de entrada e saída.",
+        codeSnippet: `#include &lt;___&gt; // Biblioteca de Entrada e Saída\n\nint main() {\n    // Início do programa\n    return 0;\n}`,
+        answer: "stdio.h",
+        feedback: "A biblioteca stdio.h é essencial para usar printf e scanf.",
       },
-      { 
-        type: "fill", 
-        question: "Declare a variável 'nome' como um vetor de char (String).", 
-        codeSnippet: `int main() {\n    // --- 1. Declaração de Variáveis ---\n    int idade;\n    float altura, peso;\n    char inicial;\n    ___ nome[100]; // String (texto longo)\n\n    // Resto do código...\n}`, 
-        answer: "char", 
-        feedback: "Strings em C são arrays de 'char'." 
+      {
+        type: "fill",
+        question: "Declare a variável 'nome' como um vetor de char (String).",
+        codeSnippet: `int main() {\n    // --- 1. Declaração de Variáveis ---\n    int idade;\n    float altura, peso;\n    char inicial;\n    ___ nome[100]; // String (texto longo)\n\n    // Resto do código...\n}`,
+        answer: "char",
+        feedback: "Strings em C são arrays de 'char'.",
       },
-      { 
-        type: "fill", 
-        question: "Complete o scanf para ler o nome do usuário.", 
-        codeSnippet: `    // --- 2. Entrada de Dados ---\n    printf("Digite seu primeiro nome: ");\n    scanf("%s", ___); // Lê texto simples\n`, 
-        answer: "nome", 
-        feedback: "Passamos o nome do vetor (que já é um endereço) para o scanf." 
+      {
+        type: "fill",
+        question: "Complete o scanf para ler o nome do usuário.",
+        codeSnippet: `    // --- 2. Entrada de Dados ---\n    printf("Digite seu primeiro nome: ");\n    scanf("%s", ___); // Lê texto simples\n`,
+        answer: "nome",
+        feedback:
+          "Passamos o nome do vetor (que já é um endereço) para o scanf.",
       },
-      { 
-        type: "fill", 
-        question: "Use o operador de endereço '&' para ler a idade.", 
-        codeSnippet: `    printf("Digite idade, altura (m) e peso (kg): ");\n    scanf("%d %f %f", ___idade, &altura, &peso); // Lê múltiplos valores\n`, 
-        answer: "&", 
-        feedback: "Para variáveis simples (int, float), o scanf precisa do endereço de memória (&)." 
+      {
+        type: "fill",
+        question: "Use o operador de endereço '&' para ler a idade.",
+        codeSnippet: `    printf("Digite idade, altura (m) e peso (kg): ");\n    scanf("%d %f %f", ___idade, &altura, &peso); // Lê múltiplos valores\n`,
+        answer: "&",
+        feedback:
+          "Para variáveis simples (int, float), o scanf precisa do endereço de memória (&).",
       },
-      { 
-        type: "fill", 
-        question: "Complete a fórmula do IMC (peso dividido por altura ao quadrado).", 
-        codeSnippet: `    // --- 3. Processamento ---\n    float imc = peso / (altura * ___); // Cálculo do IMC\n    float altura_mm = altura * 1000;\n    float altura_km = altura / 1000;\n`, 
-        answer: "altura", 
-        feedback: "IMC = Peso / (Altura * Altura)." 
+      {
+        type: "fill",
+        question:
+          "Complete a fórmula do IMC (peso dividido por altura ao quadrado).",
+        codeSnippet: `    // --- 3. Processamento ---\n    float imc = peso / (altura * ___); // Cálculo do IMC\n    float altura_mm = altura * 1000;\n    float altura_km = altura / 1000;\n`,
+        answer: "altura",
+        feedback: "IMC = Peso / (Altura * Altura).",
       },
-      { 
-        type: "fill", 
-        question: "No printf, use o especificador correto para imprimir a idade (inteiro).", 
-        codeSnippet: `    // --- 4. Saída de Dados ---\n    printf("Relatório de %s (Idade: %d):\\n", nome, idade);\n    printf("Altura: %.0f mm ou %.3f km\\n", altura_mm, altura_km);\n    printf("IMC Calculado: %.2f\\n", imc);\n`, 
-        answer: "%d", 
-        feedback: "%d é usado para inteiros decimais." 
+      {
+        type: "fill",
+        question:
+          "No printf, use o especificador correto para imprimir a idade (inteiro).",
+        codeSnippet: `    // --- 4. Saída de Dados ---\n    printf("Relatório de %s (Idade: %d):\\n", nome, idade);\n    printf("Altura: %.0f mm ou %.3f km\\n", altura_mm, altura_km);\n    printf("IMC Calculado: %.2f\\n", imc);\n`,
+        answer: "%d",
+        feedback: "%d é usado para inteiros decimais.",
       },
-      { 
-        type: "fill", 
-        question: "Complete a lógica condicional 'else if'.", 
-        codeSnippet: `    // --- 5. Lógica Condicional ---\n    if (imc < 18.5) {\n        printf("Status: Abaixo do peso\\n");\n    } ___ if (imc < 25) {\n        printf("Status: Peso Ideal\\n");\n    }`, 
-        answer: "else", 
-        feedback: "Use 'else if' para testar uma nova condição se a anterior for falsa." 
+      {
+        type: "fill",
+        question: "Complete a lógica condicional 'else if'.",
+        codeSnippet: `    // --- 5. Lógica Condicional ---\n    if (imc < 18.5) {\n        printf("Status: Abaixo do peso\\n");\n    } ___ if (imc < 25) {\n        printf("Status: Peso Ideal\\n");\n    }`,
+        answer: "else",
+        feedback:
+          "Use 'else if' para testar uma nova condição se a anterior for falsa.",
       },
-      { 
-        type: "fill", 
-        question: "Finalize a estrutura de decisão com o bloco padrão.", 
-        codeSnippet: `    } else if (imc < 25) {\n        printf("Status: Peso Ideal\\n");\n    } ___ {\n        printf("Status: Acima do peso\\n");\n    }\n    return 0;\n}`, 
-        answer: "else", 
-        feedback: "O 'else' final captura qualquer caso que não entrou nos 'if' anteriores." 
-      }
+      {
+        type: "fill",
+        question: "Finalize a estrutura de decisão com o bloco padrão.",
+        codeSnippet: `    } else if (imc < 25) {\n        printf("Status: Peso Ideal\\n");\n    } ___ {\n        printf("Status: Acima do peso\\n");\n    }\n    return 0;\n}`,
+        answer: "else",
+        feedback:
+          "O 'else' final captura qualquer caso que não entrou nos 'if' anteriores.",
+      },
     ],
   },
-  { // Unidade 0 - Versão 2: Calculadora de Média
+  {
+    // Unidade 0 - Versão 2: Calculadora de Média
     id: 0,
     title: "Introdução: Desafio de Notas",
     theory: `
@@ -168,64 +176,75 @@ const introUnitBank = [
             </div>
         `,
     exercises: [
-      { 
-        type: "fill", 
-        question: "Inclua a biblioteca padrão de entrada e saída.", 
-        codeSnippet: `#include &lt;___&gt; \n\nint main() {\n    return 0;\n}`, 
-        answer: "stdio.h", 
-        feedback: "A biblioteca stdio.h é essencial para usar printf e scanf." 
+      {
+        type: "fill",
+        question: "Inclua a biblioteca padrão de entrada e saída.",
+        codeSnippet: `#include &lt;___&gt; \n\nint main() {\n    return 0;\n}`,
+        answer: "stdio.h",
+        feedback: "A biblioteca stdio.h é essencial para usar printf e scanf.",
       },
-      { 
-        type: "fill", 
-        question: "Declare três variáveis do tipo float para as notas.", 
-        codeSnippet: `int main() {\n    // --- 1. Variáveis ---\n    ___ nota1, nota2, nota3;\n    char nome_aluno[50];\n    // ...`, 
-        answer: "float", 
-        feedback: "Usamos 'float' para números com casas decimais, como as notas." 
+      {
+        type: "fill",
+        question: "Declare três variáveis do tipo float para as notas.",
+        codeSnippet: `int main() {\n    // --- 1. Variáveis ---\n    ___ nota1, nota2, nota3;\n    char nome_aluno[50];\n    // ...`,
+        answer: "float",
+        feedback:
+          "Usamos 'float' para números com casas decimais, como as notas.",
       },
-      { 
-        type: "fill", 
-        question: "Use scanf para ler o nome do aluno.", 
-        codeSnippet: `    printf("Nome do aluno: ");\n    scanf("%s", ___);`, 
-        answer: "nome_aluno", 
-        feedback: "Passamos o nome do vetor de char (que é um endereço) para o scanf ler a string." 
+      {
+        type: "fill",
+        question: "Use scanf para ler o nome do aluno.",
+        codeSnippet: `    printf("Nome do aluno: ");\n    scanf("%s", ___);`,
+        answer: "nome_aluno",
+        feedback:
+          "Passamos o nome do vetor de char (que é um endereço) para o scanf ler a string.",
       },
-      { 
-        type: "fill", 
-        question: "Complete o scanf para ler as três notas (float).", 
-        codeSnippet: `    printf("Digite as 3 notas: ");\n    scanf("%f %f %f", &nota1, ___ , &nota3);`, 
-        answer: "&nota2", 
-        feedback: "Precisamos passar o endereço de cada variável float para o scanf usando o operador '&'." 
+      {
+        type: "fill",
+        question: "Complete o scanf para ler as três notas (float).",
+        codeSnippet: `    printf("Digite as 3 notas: ");\n    scanf("%f %f %f", &nota1, ___ , &nota3);`,
+        answer: "&nota2",
+        feedback:
+          "Precisamos passar o endereço de cada variável float para o scanf usando o operador '&'.",
       },
-      { 
-        type: "fill", 
-        question: "Complete o cálculo da média. A soma das notas deve ser dividida por 3.", 
-        codeSnippet: `    // --- 3. Processamento ---\n    float media = (nota1 + nota2 + nota3) / ___;`, 
-        answer: "3.0", 
-        feedback: "Dividimos por 3.0 (um float) para garantir que o resultado da divisão seja também um float." 
+      {
+        type: "fill",
+        question:
+          "Complete o cálculo da média. A soma das notas deve ser dividida por 3.",
+        codeSnippet: `    // --- 3. Processamento ---\n    float media = (nota1 + nota2 + nota3) / ___;`,
+        answer: "3.0",
+        feedback:
+          "Dividimos por 3.0 (um float) para garantir que o resultado da divisão seja também um float.",
       },
-      { 
-        type: "fill", 
-        question: "Use o especificador correto para imprimir a média (um float com uma casa decimal).", 
-        codeSnippet: `    printf("Média Final: ___\\n", media);`, 
-        answer: "%.1f", 
-        feedback: "'%f' é para float, e '.1' especifica que queremos apenas uma casa decimal." 
+      {
+        type: "fill",
+        question:
+          "Use o especificador correto para imprimir a média (um float com uma casa decimal).",
+        codeSnippet: `    printf("Média Final: ___\\n", media);`,
+        answer: "%.1f",
+        feedback:
+          "'%f' é para float, e '.1' especifica que queremos apenas uma casa decimal.",
       },
-      { 
-        type: "fill", 
-        question: "Complete a primeira condição do 'if' para verificar se o aluno foi aprovado (média >= 7.0).", 
-        codeSnippet: `    // --- 5. Decisão ---\n    if (media >= ___) {\n        printf("Status: Aprovado!\\n");\n    }`, 
-        answer: "7.0", 
-        feedback: "A condição para aprovação é ter uma média maior ou igual a 7.0." 
+      {
+        type: "fill",
+        question:
+          "Complete a primeira condição do 'if' para verificar se o aluno foi aprovado (média >= 7.0).",
+        codeSnippet: `    // --- 5. Decisão ---\n    if (media >= ___) {\n        printf("Status: Aprovado!\\n");\n    }`,
+        answer: "7.0",
+        feedback:
+          "A condição para aprovação é ter uma média maior ou igual a 7.0.",
       },
-      { 
-        type: "fill", 
-        question: "Complete a condição 'else if' para verificar se o aluno está em recuperação (média >= 5.0).", 
-        codeSnippet: `    } else if (media >= ___) {\n        printf("Status: Recuperação.\\n");\n    } else {\n        printf("Status: Reprovado.\\n");\n    }`, 
-        answer: "5.0", 
-        feedback: "Se não foi aprovado, a próxima verificação é se a média é suficiente para recuperação (>= 5.0)." 
-      }
+      {
+        type: "fill",
+        question:
+          "Complete a condição 'else if' para verificar se o aluno está em recuperação (média >= 5.0).",
+        codeSnippet: `    } else if (media >= ___) {\n        printf("Status: Recuperação.\\n");\n    } else {\n        printf("Status: Reprovado.\\n");\n    }`,
+        answer: "5.0",
+        feedback:
+          "Se não foi aprovado, a próxima verificação é se a média é suficiente para recuperação (>= 5.0).",
+      },
     ],
-  }
+  },
 ];
 
 const courseData = [
@@ -1056,9 +1075,11 @@ function init() {
       document.body.classList.toggle("menu-hidden");
     });
   }
-  
+
   // Fechar modal com ESC
-  document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeBlackboard(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeBlackboard();
+  });
   // Opcional: Começar com menu fechado em telas pequenas
   if (window.innerWidth <= 768) {
     document.body.classList.add("menu-hidden");
@@ -1169,24 +1190,28 @@ function loadUnit(index) {
   // --- ALTERAÇÃO PARA UNIDADE 0: QUADRO NEGRO ---
   if (index === 0) {
     html += `<p style="margin-bottom:20px; color: #888;">Complete os códigos no Compilador do Quadro Negro.</p>`;
-    
-    unit.exercises.forEach((ex, i) => {
-        const isDone = ex.completed;
-        const statusClass = isDone ? "correct-container" : "";
-        const btnText = isDone ? "Revisar Código Compilado" : "Abrir Quadro Negro & Compilar";
-        const btnColor = isDone ? "background-color: #28a745;" : "background-color: var(--accent);";
 
-        html += `<div class="exercise-card ${statusClass}" id="ex-card-${i}">`;
-        html += `<h3>Desafio ${i + 1}: ${ex.question}</h3>`;
-        html += `<div class="input-group">
+    unit.exercises.forEach((ex, i) => {
+      const isDone = ex.completed;
+      const statusClass = isDone ? "correct-container" : "";
+      const btnText = isDone
+        ? "Revisar Código Compilado"
+        : "Abrir Quadro Negro & Compilar";
+      const btnColor = isDone
+        ? "background-color: #28a745;"
+        : "background-color: var(--accent);";
+
+      html += `<div class="exercise-card ${statusClass}" id="ex-card-${i}">`;
+      html += `<h3>Desafio ${i + 1}: ${ex.question}</h3>`;
+      html += `<div class="input-group">
                     <button onclick="openBlackboard(${index}, ${i})" style="${btnColor} color: white; border: none; padding: 15px 30px; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: 'Consolas'; font-size: 1rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                         <span>💻</span> ${btnText}
                     </button>
                  </div>`;
-        html += `<div id="feedback-${i}" class="feedback" style="display:${isDone ? 'block' : 'none'};" class="${isDone ? 'correct' : ''}">
-                    ${isDone ? '<span class="status-correct">Compilação bem sucedida!</span>' : ''}
+      html += `<div id="feedback-${i}" class="feedback" style="display:${isDone ? "block" : "none"};" class="${isDone ? "correct" : ""}">
+                    ${isDone ? '<span class="status-correct">Compilação bem sucedida!</span>' : ""}
                  </div>`;
-        html += `</div>`;
+      html += `</div>`;
     });
 
     // NOVO: Botão para atualizar o desafio
@@ -1252,29 +1277,29 @@ function getExerciseTypeName(type) {
 }
 
 function refreshIntroUnit() {
-    // Escolhe um novo índice, diferente do atual
-    let newIndex;
-    do {
-        newIndex = Math.floor(Math.random() * introUnitBank.length);
-    } while (introUnitBank.length > 1 && newIndex === currentIntroUnitIndex);
+  // Escolhe um novo índice, diferente do atual
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * introUnitBank.length);
+  } while (introUnitBank.length > 1 && newIndex === currentIntroUnitIndex);
 
-    currentIntroUnitIndex = newIndex;
+  currentIntroUnitIndex = newIndex;
 
-    // Pega uma cópia profunda dos dados da nova unidade para não modificar o original
-    const newUnitData = JSON.parse(JSON.stringify(introUnitBank[newIndex]));
+  // Pega uma cópia profunda dos dados da nova unidade para não modificar o original
+  const newUnitData = JSON.parse(JSON.stringify(introUnitBank[newIndex]));
 
-    // Adiciona o estado de progresso aos novos exercícios
-    newUnitData.exercises.forEach((ex) => {
-      ex.completed = false;
-      ex.incorrectAttempts = 0;
-    });
+  // Adiciona o estado de progresso aos novos exercícios
+  newUnitData.exercises.forEach((ex) => {
+    ex.completed = false;
+    ex.incorrectAttempts = 0;
+  });
 
-    // Substitui a unidade no array principal de dados do curso
-    courseData[0] = newUnitData;
+  // Substitui a unidade no array principal de dados do curso
+  courseData[0] = newUnitData;
 
-    // Recarrega a visualização da unidade e salva o novo estado (progresso zerado)
-    loadUnit(0);
-    saveProgress();
+  // Recarrega a visualização da unidade e salva o novo estado (progresso zerado)
+  loadUnit(0);
+  saveProgress();
 }
 // Função Global para validar respostas
 window.checkAnswer = function (unitIdx, exIdx) {
@@ -1316,6 +1341,7 @@ window.checkAnswer = function (unitIdx, exIdx) {
       updateUserStats();
     }
     feedbackEl.innerHTML = `<span class="status-correct">Correto!</span> Muito bem.`;
+    launchFireworks(); // Lança fogos de artifício
   } else {
     exercise.incorrectAttempts++;
     if (exercise.incorrectAttempts >= 3 && !exercise.completed) {
@@ -1338,6 +1364,33 @@ window.checkAnswer = function (unitIdx, exIdx) {
     feedbackEl.innerHTML = msg;
   }
 };
+
+// --- EFEITO DE FOGOS DE ARTIFÍCIO ---
+function launchFireworks() {
+  const neonColors = [
+    "var(--neon-keyword)", // #0073ff
+    "var(--neon-string)", // #e03535
+    "var(--neon-function)", // #d0d0d0
+    "var(--neon-number)", // #00ff00
+    "#ff00ff", // magenta neon
+    "#00ffff", // ciano
+  ];
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement("div");
+    particle.className = "firework-particle";
+    particle.style.backgroundColor =
+      neonColors[Math.floor(Math.random() * neonColors.length)];
+    particle.style.left = Math.random() * window.innerWidth + "px";
+    particle.style.top = window.innerHeight + "px";
+    const randomX = (Math.random() - 0.5) * 400; // -200 to 200
+    const randomY = -Math.random() * 400 - 100; // -100 to -500
+    particle.style.setProperty("--random-x", randomX + "px");
+    particle.style.setProperty("--random-y", randomY + "px");
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 2000);
+  }
+}
 
 window.showAnswer = function (unitIdx, exIdx) {
   const exercise = courseData[unitIdx].exercises[exIdx];
@@ -1373,7 +1426,7 @@ window.showAnswer = function (unitIdx, exIdx) {
 // --- NOVA LÓGICA DO QUADRO NEGRO (BLACKBOARD) ---
 
 function createBlackboardModal() {
-    const modalHtml = `
+  const modalHtml = `
     <div id="blackboard-modal" class="modal-overlay">
         <div class="blackboard-container">
             <div class="blackboard-header">
@@ -1390,164 +1443,182 @@ function createBlackboardModal() {
             </div>
         </div>
     </div>`;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
+  document.body.insertAdjacentHTML("beforeend", modalHtml);
 
-    // Ao clicar fora do quadro (overlay), redirecionar para a página inicial
-    document.getElementById('blackboard-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            window.location.href = 'Pagina_inicial.html';
-        }
+  // Ao clicar fora do quadro (overlay), redirecionar para a página inicial
+  document
+    .getElementById("blackboard-modal")
+    .addEventListener("click", function (e) {
+      if (e.target === this) {
+        window.location.href = "Pagina_inicial.html";
+      }
     });
 }
 
 let currentBbUnit = 0;
 let currentBbEx = 0;
 
-window.openBlackboard = function(unitIdx, exIdx) {
-    currentBbUnit = unitIdx;
-    currentBbEx = exIdx;
-    const ex = courseData[unitIdx].exercises[exIdx];
-    const modal = document.getElementById('blackboard-modal');
-    const content = document.getElementById('bb-content');
-    const btn = document.getElementById('bb-compile-btn');
+window.openBlackboard = function (unitIdx, exIdx) {
+  currentBbUnit = unitIdx;
+  currentBbEx = exIdx;
+  const ex = courseData[unitIdx].exercises[exIdx];
+  const modal = document.getElementById("blackboard-modal");
+  const content = document.getElementById("bb-content");
+  const btn = document.getElementById("bb-compile-btn");
 
-    // Prepara o conteúdo do quadro
-    let codeDisplay = "";
+  // Prepara o conteúdo do quadro
+  let codeDisplay = "";
 
-    // Transforma o snippet em algo visualmente impactante
-    // Se for tipo 'fill', substitui ___ por input
-    if (ex.type === "fill") {
-        let parts = ex.codeSnippet.split("___");
-        // Aplica cores neon nas partes estáticas (regex aprimorada para o quadro negro)
-        const highlight = (text) => {
-            return text
-                .replace(/(".*?")/g, '<span class="neon-s">$1</span>') // 1. Strings (Primeiro para evitar conflito com atributos HTML)
-                .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>') // 2. Comentários
-                .replace(/\b(int|float|char|void|if|else|return|printf|scanf)\b/g, '<span class="neon-k">$1</span>') // 3. Keywords
-                .replace(/(#include)/g, '<span class="neon-k">$1</span>')
-                .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>') // 4. Números
-                .replace(/&(?!(?:lt|gt|amp|quot|apos);)/g, '<span class="neon-function">&</span>') // 5. Endereço (Ignora entities HTML)
-                .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>'); // 6. Pontuação (Removido ; para não quebrar entidades &lt;)
-        };
-        
-        codeDisplay += `<span>${highlight(parts[0].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</span>`;
-        codeDisplay += `<input type="text" id="bb-input" class="blackboard-input" autocomplete="off" placeholder="?" style="width: 80px; text-align: center;">`;
-        if (parts[1]) codeDisplay += `${highlight(parts[1].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}`;
-        codeDisplay += `</span>`;
-    } 
-    else if (ex.type === "code") {
-        codeDisplay += `<div style="color: #888; margin-bottom: 10px;">// ${ex.question}</div>`;
-        codeDisplay += `<textarea id="bb-input" class="blackboard-input" style="width:100%; height:150px; background:#050505;">${ex.completed ? (localStorage.getItem(`bb-ans-${unitIdx}-${exIdx}`) || "") : ""}</textarea>`;
-    }
+  // Transforma o snippet em algo visualmente impactante
+  // Se for tipo 'fill', substitui ___ por input
+  if (ex.type === "fill") {
+    let parts = ex.codeSnippet.split("___");
+    // Aplica cores neon nas partes estáticas (regex aprimorada para o quadro negro)
+    const highlight = (text) => {
+      return text
+        .replace(/(".*?")/g, '<span class="neon-s">$1</span>') // 1. Strings (Primeiro para evitar conflito com atributos HTML)
+        .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>') // 2. Comentários
+        .replace(
+          /\b(int|float|char|void|if|else|return|printf|scanf)\b/g,
+          '<span class="neon-k">$1</span>',
+        ) // 3. Keywords
+        .replace(/(#include)/g, '<span class="neon-k">$1</span>')
+        .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>') // 4. Números
+        .replace(
+          /&(?!(?:lt|gt|amp|quot|apos);)/g,
+          '<span class="neon-function">&</span>',
+        ) // 5. Endereço (Ignora entities HTML)
+        .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>'); // 6. Pontuação (Removido ; para não quebrar entidades &lt;)
+    };
 
-    content.innerHTML = codeDisplay;
-    
-    // Se já completou, mostra o estado "Compilado"
-    if (ex.completed) {
-        simulateCompilationSuccess(content, (ex.codeSnippet || "").replace("___", ex.answer), true);
-    } else {
-        content.parentElement.classList.remove('neon-bg-success');
-        btn.style.display = 'block';
-        btn.onclick = () => runBlackboardCompiler();
-        
-        // Foco automático
-        setTimeout(() => {
-            const input = document.getElementById('bb-input');
-            if(input) input.focus();
-        }, 100);
-    }
+    codeDisplay += `<span>${highlight(parts[0].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</span>`;
+    codeDisplay += `<input type="text" id="bb-input" class="blackboard-input" autocomplete="off" placeholder="?" style="width: 80px; text-align: center;">`;
+    if (parts[1])
+      codeDisplay += `${highlight(parts[1].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}`;
+    codeDisplay += `</span>`;
+  } else if (ex.type === "code") {
+    codeDisplay += `<div style="color: #888; margin-bottom: 10px;">// ${ex.question}</div>`;
+    codeDisplay += `<textarea id="bb-input" class="blackboard-input" style="width:100%; height:150px; background:#050505;">${ex.completed ? localStorage.getItem(`bb-ans-${unitIdx}-${exIdx}`) || "" : ""}</textarea>`;
+  }
 
-    modal.classList.add('active');
+  content.innerHTML = codeDisplay;
+
+  // Se já completou, mostra o estado "Compilado"
+  if (ex.completed) {
+    simulateCompilationSuccess(
+      content,
+      (ex.codeSnippet || "").replace("___", ex.answer),
+      true,
+    );
+  } else {
+    content.parentElement.classList.remove("neon-bg-success");
+    btn.style.display = "block";
+    btn.onclick = () => runBlackboardCompiler();
+
+    // Foco automático
+    setTimeout(() => {
+      const input = document.getElementById("bb-input");
+      if (input) input.focus();
+    }, 100);
+  }
+
+  modal.classList.add("active");
 };
 
-window.closeBlackboard = function() {
-    document.getElementById('blackboard-modal').classList.remove('active');
+window.closeBlackboard = function () {
+  document.getElementById("blackboard-modal").classList.remove("active");
 };
 
 function runBlackboardCompiler() {
-    const input = document.getElementById('bb-input');
-    const val = input.value.trim();
-    const ex = courseData[currentBbUnit].exercises[currentBbEx];
-    const contentDiv = document.getElementById('bb-content');
+  const input = document.getElementById("bb-input");
+  const val = input.value.trim();
+  const ex = courseData[currentBbUnit].exercises[currentBbEx];
+  const contentDiv = document.getElementById("bb-content");
 
-    let isCorrect = false;
+  let isCorrect = false;
 
-    // Validação básica igual à original
-    if (ex.type === "fill" && val === ex.answer) isCorrect = true;
-    else if (ex.type === "code") {
-        const missing = ex.keywords.filter(k => !val.includes(k));
-        if (missing.length === 0) isCorrect = true;
-    }
+  // Validação básica igual à original
+  if (ex.type === "fill" && val === ex.answer) isCorrect = true;
+  else if (ex.type === "code") {
+    const missing = ex.keywords.filter((k) => !val.includes(k));
+    if (missing.length === 0) isCorrect = true;
+  }
 
-    if (isCorrect) {
-        // Animação de Compilação
-        contentDiv.innerHTML = `<div style="color: var(--neon-number);">Compilando...</div>`;
-        
-        setTimeout(() => {
-            // Mostra o código completo preenchido como se o usuário tivesse escrito
-            let fullCode = ex.codeSnippet.replace("___", val);
-            simulateCompilationSuccess(contentDiv, fullCode);
-            
-            // Salva progresso
-            if (!ex.completed) {
-                userXP += 50; // XP Bônus pelo modo Hardcore
-                ex.completed = true;
-                saveProgress();
-                updateUserStats();
-                // Salva o código digitado se for tipo 'code' para mostrar depois
-                if(ex.type === "code") localStorage.setItem(`bb-ans-${currentBbUnit}-${currentBbEx}`, val);
-                
-                // Atualiza a UI da lista principal
-                loadUnit(currentBbUnit);
-            }
-        }, 800);
-    } else {
-        // Erro visual
-        input.style.borderColor = "red";
-        input.style.boxShadow = "0 0 15px red";
-        
-        const originalPlaceholder = input.placeholder;
-        input.value = "";
-        input.placeholder = "Erro de Sintaxe. Tente novamente.";
-        setTimeout(() => {
-            input.style.borderColor = "#444";
-            input.style.boxShadow = "none";
-            input.placeholder = originalPlaceholder;
-        }, 1500);
-    }
+  if (isCorrect) {
+    // Animação de Compilação
+    contentDiv.innerHTML = `<div style="color: var(--neon-number);">Compilando...</div>`;
+
+    setTimeout(() => {
+      // Mostra o código completo preenchido como se o usuário tivesse escrito
+      let fullCode = ex.codeSnippet.replace("___", val);
+      simulateCompilationSuccess(contentDiv, fullCode);
+
+      // Salva progresso
+      if (!ex.completed) {
+        userXP += 50; // XP Bônus pelo modo Hardcore
+        ex.completed = true;
+        saveProgress();
+        updateUserStats();
+        // Salva o código digitado se for tipo 'code' para mostrar depois
+        if (ex.type === "code")
+          localStorage.setItem(`bb-ans-${currentBbUnit}-${currentBbEx}`, val);
+
+        // Atualiza a UI da lista principal
+        loadUnit(currentBbUnit);
+      }
+    }, 800);
+  } else {
+    // Erro visual
+    input.style.borderColor = "red";
+    input.style.boxShadow = "0 0 15px red";
+
+    const originalPlaceholder = input.placeholder;
+    input.value = "";
+    input.placeholder = "Erro de Sintaxe. Tente novamente.";
+    setTimeout(() => {
+      input.style.borderColor = "#444";
+      input.style.boxShadow = "none";
+      input.placeholder = originalPlaceholder;
+    }, 1500);
+  }
 }
 
 // Renderiza o código final com syntax highlighting
 function simulateCompilationSuccess(container, userValue, skipAnim) {
-    const highlight = (text) => {
-        return text
-            .replace(/(".*?")/g, '<span class="neon-s">$1</span>')
-            .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>')
-            .replace(/\b(int|float|char|void|if|else|return|printf|scanf)\b/g, '<span class="neon-k">$1</span>')
-            .replace(/(#include)/g, '<span class="neon-k">$1</span>')
-            .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>')
-            .replace(/(&)/g, '<span class="neon-function">$1</span>')
-            .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>');
-    };
+  const highlight = (text) => {
+    return text
+      .replace(/(".*?")/g, '<span class="neon-s">$1</span>')
+      .replace(/(\/\/.*)/g, '<span class="neon-c">$1</span>')
+      .replace(
+        /\b(int|float|char|void|if|else|return|printf|scanf)\b/g,
+        '<span class="neon-k">$1</span>',
+      )
+      .replace(/(#include)/g, '<span class="neon-k">$1</span>')
+      .replace(/(\b\d+\.?\d*\b)/g, '<span class="neon-n">$1</span>')
+      .replace(/(&)/g, '<span class="neon-function">$1</span>')
+      .replace(/(\(|\)|{|})/g, '<span style="color:white;">$1</span>');
+  };
 
-    const html = `
+  const html = `
     <div style="font-family:'Consolas'; color: white;">
         <div style="margin-bottom: 10px; color: var(--neon-function);">// COMPILAÇÃO BEM SUCEDIDA</div>
-        <div style="white-space: pre-wrap; color: var(--neon-text); font-size: 10.5pt; font-weight:bold;">${highlight(userValue.replace(/</g, '&lt;').replace(/>/g, '&gt;'))}</div>
+        <div style="white-space: pre-wrap; color: var(--neon-text); font-size: 10.5pt; font-weight:bold;">${highlight(userValue.replace(/</g, "&lt;").replace(/>/g, "&gt;"))}</div>
         <div style="margin-top:20px; color: var(--neon-number); border-top: 1px dashed #333; padding-top:10px;">
             > Program exited with code 0.<br>
             > <span style="animation: blink 1s infinite;">_</span>
         </div>
     </div>`;
-    
-    container.innerHTML = html;
-    document.querySelector('.blackboard-container').classList.add('neon-bg-success');
-    document.getElementById('bb-compile-btn').style.display = 'none';
+
+  container.innerHTML = html;
+  document
+    .querySelector(".blackboard-container")
+    .classList.add("neon-bg-success");
+  document.getElementById("bb-compile-btn").style.display = "none";
 }
 
 // --- WIDGET DE ÁUDIO (MÚSICA) ---
 function createAudioPlayer() {
-    const audioHtml = `
+  const audioHtml = `
     <div id="audio-widget">
         <span id="audio-drag-handle" title="Arraste para mover">🎵</span>
         <button id="audio-play" title="Tocar">▶</button>
@@ -1558,267 +1629,299 @@ function createAudioPlayer() {
             <source src="musica.m4a" type="audio/mp4">
         </audio>
     </div>`;
-    
-    document.body.insertAdjacentHTML('beforeend', audioHtml);
 
-    const audio = document.getElementById('bg-audio');
-    const btnPlay = document.getElementById('audio-play');
-    const btnPause = document.getElementById('audio-pause');
-    const slider = document.getElementById('audio-vol-slider');
-    const audioWidget = document.getElementById('audio-widget');
-    const dragHandle = document.getElementById('audio-drag-handle');
+  document.body.insertAdjacentHTML("beforeend", audioHtml);
 
-    // Volume inicial
-    audio.volume = 0.5;
+  const audio = document.getElementById("bg-audio");
+  const btnPlay = document.getElementById("audio-play");
+  const btnPause = document.getElementById("audio-pause");
+  const slider = document.getElementById("audio-vol-slider");
+  const audioWidget = document.getElementById("audio-widget");
+  const dragHandle = document.getElementById("audio-drag-handle");
 
-    // Tratamento de erro caso o arquivo não exista
-    audio.addEventListener('error', (e) => {
-        alert("Erro: O arquivo 'videoplayback (1).m4a' não foi encontrado na pasta do projeto.");
-        alert("Erro: O arquivo 'musica.m4a' não foi encontrado. Verifique se o arquivo está na pasta correta.");
-    });
+  // Volume inicial
+  audio.volume = 0.5;
 
-    // Eventos
-    btnPlay.onclick = () => {
-        audio.play().then(() => {
-            btnPlay.style.display = 'none';
-            btnPause.style.display = 'inline-block';
-        }).catch(e => console.log("Interação necessária para tocar áudio:", e));
-    };
+  // Tratamento de erro caso o arquivo não exista
+  audio.addEventListener("error", (e) => {
+    alert(
+      "Erro: O arquivo 'videoplayback (1).m4a' não foi encontrado na pasta do projeto.",
+    );
+    alert(
+      "Erro: O arquivo 'musica.m4a' não foi encontrado. Verifique se o arquivo está na pasta correta.",
+    );
+  });
 
-    btnPause.onclick = () => {
-        audio.pause();
-        btnPause.style.display = 'none';
-        btnPlay.style.display = 'inline-block';
-    };
+  // Eventos
+  btnPlay.onclick = () => {
+    audio
+      .play()
+      .then(() => {
+        btnPlay.style.display = "none";
+        btnPause.style.display = "inline-block";
+      })
+      .catch((e) => console.log("Interação necessária para tocar áudio:", e));
+  };
 
-    slider.oninput = (e) => {
-        audio.volume = e.target.value;
-    };
+  btnPause.onclick = () => {
+    audio.pause();
+    btnPause.style.display = "none";
+    btnPlay.style.display = "inline-block";
+  };
 
-    // Tornar arrastável usando o ícone como alça
-    makeDraggable(audioWidget, dragHandle);
+  slider.oninput = (e) => {
+    audio.volume = e.target.value;
+  };
+
+  // Tornar arrastável usando o ícone como alça
+  makeDraggable(audioWidget, dragHandle);
 }
 
 // --- WIDGET DE DESPERTADOR ---
 
 let timerInterval;
-let timerSeconds = 7;
+let timerMinutes = 25;
+let timerSeconds = timerMinutes * 60;
 let isTimerRunning = false;
 let timerWidget;
 let timerDisplay;
 
 function createTimerWidget() {
-    // Widget HTML
-    const widgetHtml = `
+  // Widget HTML
+  const widgetHtml = `
     <div id="timer-widget">
-        <div id="timer-display" title="Arraste para mover">00:07</div>
+        <div id="timer-display" title="Arraste para mover">25:00</div>
         <div class="timer-controls">
             <button id="timer-play" title="Iniciar">▶️</button>
             <button id="timer-pause" title="Pausar">⏸️</button>
             <button id="timer-reset" title="Resetar">🔄</button>
         </div>
     </div>`;
-    document.body.insertAdjacentHTML('beforeend', widgetHtml);
+  document.body.insertAdjacentHTML("beforeend", widgetHtml);
 
-    // Popup de Alarme HTML
-    const popupHtml = `
+  // Popup de Alarme HTML
+  const popupHtml = `
     <div id="alarm-modal-overlay" class="modal-overlay">
         <div class="alarm-popup">
             <h2>Pausa para respirar.</h2>
             <button id="close-alarm-popup">Fechar</button>
         </div>
     </div>`;
-    document.body.insertAdjacentHTML('beforeend', popupHtml);
+  document.body.insertAdjacentHTML("beforeend", popupHtml);
 
-    // Elementos do DOM
-    timerWidget = document.getElementById('timer-widget');
-    timerDisplay = document.getElementById('timer-display');
-    const playBtn = document.getElementById('timer-play');
-    const pauseBtn = document.getElementById('timer-pause');
-    const resetBtn = document.getElementById('timer-reset');
-    const closePopupBtn = document.getElementById('close-alarm-popup');
-    const alarmOverlay = document.getElementById('alarm-modal-overlay');
+  // Elementos do DOM
+  timerWidget = document.getElementById("timer-widget");
+  timerDisplay = document.getElementById("timer-display");
+  const playBtn = document.getElementById("timer-play");
+  const pauseBtn = document.getElementById("timer-pause");
+  const resetBtn = document.getElementById("timer-reset");
+  const closePopupBtn = document.getElementById("close-alarm-popup");
+  const alarmOverlay = document.getElementById("alarm-modal-overlay");
 
-    // Event Listeners
-    playBtn.onclick = startTimer;
-    pauseBtn.onclick = pauseTimer;
-    resetBtn.onclick = resetTimer;
-    closePopupBtn.onclick = closeAlarmPopup;
-    alarmOverlay.addEventListener('click', (e) => {
-        if (e.target === alarmOverlay) {
-            closeAlarmPopup();
-        }
-    });
+  updateTimerDisplay();
 
-    // Lógica de arrastar
-    makeDraggable(timerWidget, timerDisplay);
+  // Event Listeners
+  playBtn.onclick = startTimer;
+  pauseBtn.onclick = pauseTimer;
+  resetBtn.onclick = resetTimer;
+  closePopupBtn.onclick = closeAlarmPopup;
+  alarmOverlay.addEventListener("click", (e) => {
+    if (e.target === alarmOverlay) {
+      closeAlarmPopup();
+    }
+  });
+
+  // Lógica de arrastar
+  makeDraggable(timerWidget, timerDisplay);
 }
 
 function startTimer() {
-    if (isTimerRunning || timerSeconds <= 0) return;
-    isTimerRunning = true;
-    timerInterval = setInterval(() => {
-        timerSeconds--;
-        updateTimerDisplay();
-        if (timerSeconds <= 0) {
-            triggerAlarm();
-        }
-    }, 1000);
+  if (isTimerRunning || timerSeconds <= 0) return;
+  isTimerRunning = true;
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      triggerAlarm();
+    }
+  }, 1000);
 }
 
 function pauseTimer() {
-    clearInterval(timerInterval);
-    isTimerRunning = false;
+  clearInterval(timerInterval);
+  isTimerRunning = false;
 }
 
 function resetTimer() {
-    pauseTimer();
-    timerSeconds = 7;
-    updateTimerDisplay();
+  pauseTimer();
+  timerSeconds = timerMinutes * 60;
+  updateTimerDisplay();
 }
 
 function updateTimerDisplay() {
-    const seconds = (timerSeconds % 60).toString().padStart(2, '0');
-    timerDisplay.textContent = `00:${seconds}`;
+  const minutes = Math.floor(timerSeconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (timerSeconds % 60).toString().padStart(2, "0");
+  timerDisplay.textContent = `${minutes}:${seconds}`;
 }
 
 function triggerAlarm() {
-    pauseTimer();
-    startConfettiStorm();
-    document.getElementById('alarm-modal-overlay').classList.add('active');
+  pauseTimer();
+  startConfettiStorm();
+  document.getElementById("alarm-modal-overlay").classList.add("active");
 }
 
 function closeAlarmPopup() {
-    stopConfettiStorm();
-    document.getElementById('alarm-modal-overlay').classList.remove('active');
-    resetTimer(); // Reseta o timer ao fechar o popup
+  stopConfettiStorm();
+  document.getElementById("alarm-modal-overlay").classList.remove("active");
+  resetTimer(); // Reseta o timer ao fechar o popup
 }
 
 function makeDraggable(widget, handle) {
-    let offsetX, offsetY, isDragging = false;
+  let offsetX,
+    offsetY,
+    isDragging = false;
 
-    handle.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - widget.getBoundingClientRect().left;
-        offsetY = e.clientY - widget.getBoundingClientRect().top;
-        widget.style.cursor = 'grabbing';
-        document.body.style.userSelect = 'none'; // Impede seleção de texto
-    });
+  handle.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - widget.getBoundingClientRect().left;
+    offsetY = e.clientY - widget.getBoundingClientRect().top;
+    widget.style.cursor = "grabbing";
+    document.body.style.userSelect = "none"; // Impede seleção de texto
+  });
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        let newX = e.clientX - offsetX;
-        let newY = e.clientY - offsetY;
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    let newX = e.clientX - offsetX;
+    let newY = e.clientY - offsetY;
 
-        const maxX = window.innerWidth - widget.offsetWidth;
-        const maxY = window.innerHeight - widget.offsetHeight;
+    const maxX = window.innerWidth - widget.offsetWidth;
+    const maxY = window.innerHeight - widget.offsetHeight;
 
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
 
-        widget.style.left = `${newX}px`;
-        widget.style.top = `${newY}px`;
-        widget.style.bottom = 'auto';
-        widget.style.right = 'auto';
-    });
+    widget.style.left = `${newX}px`;
+    widget.style.top = `${newY}px`;
+    widget.style.bottom = "auto";
+    widget.style.right = "auto";
+  });
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        widget.style.cursor = 'move';
-        document.body.style.userSelect = '';
-    });
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    widget.style.cursor = "move";
+    document.body.style.userSelect = "";
+  });
 }
 
 // --- SISTEMA DE PARTÍCULAS (ANIME DE CONFETES) ---
 let confettiAnimId;
 
 function startConfettiStorm() {
-    const canvas = document.createElement('canvas');
-    canvas.id = 'confetti-canvas';
-    Object.assign(canvas.style, {
-        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-        pointerEvents: 'none', zIndex: 9999
+  const canvas = document.createElement("canvas");
+  canvas.id = "confetti-canvas";
+  Object.assign(canvas.style, {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    pointerEvents: "none",
+    zIndex: 9999,
+  });
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = [
+    "#FF0000",
+    "#00FF00",
+    "#0000FF",
+    "#FFFF00",
+    "#00FFFF",
+    "#FF00FF",
+    "#FFFFFF",
+  ];
+
+  // Criar partículas
+  for (let i = 0; i < 500; i++) {
+    particles.push(createParticle(canvas.width, canvas.height, colors));
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p) => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+
+      if (p.type === "confetti") {
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      } else if (p.type === "serpentine") {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      } else if (p.type === "glitter") {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+
+      // Física
+      p.y += p.speedY;
+      p.x += Math.sin(p.oscillation) * 2;
+      p.rotation += p.rotationSpeed;
+      p.oscillation += 0.1;
+
+      // Reset ao sair da tela
+      if (p.y > canvas.height) {
+        Object.assign(
+          p,
+          createParticle(canvas.width, canvas.height, colors, true),
+        );
+      }
     });
-    document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#FFFFFF'];
-
-    // Criar partículas
-    for (let i = 0; i < 500; i++) {
-        particles.push(createParticle(canvas.width, canvas.height, colors));
-    }
-
-    function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(p => {
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate(p.rotation * Math.PI / 180);
-            ctx.fillStyle = p.color;
-            
-            if (p.type === 'confetti') {
-                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-            } else if (p.type === 'serpentine') {
-                ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-            } else if (p.type === 'glitter') {
-                ctx.beginPath();
-                ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            
-            ctx.restore();
-
-            // Física
-            p.y += p.speedY;
-            p.x += Math.sin(p.oscillation) * 2;
-            p.rotation += p.rotationSpeed;
-            p.oscillation += 0.1;
-
-            // Reset ao sair da tela
-            if (p.y > canvas.height) {
-                Object.assign(p, createParticle(canvas.width, canvas.height, colors, true));
-            }
-        });
-
-        confettiAnimId = requestAnimationFrame(render);
-    }
-    render();
+    confettiAnimId = requestAnimationFrame(render);
+  }
+  render();
 }
 
 function createParticle(w, h, colors, top = false) {
-    const typeRand = Math.random();
-    let type = 'confetti'; // Quadrados
-    if (typeRand > 0.7) type = 'serpentine'; // Retângulos longos
-    else if (typeRand > 0.9) type = 'glitter'; // Círculos pequenos
+  const typeRand = Math.random();
+  let type = "confetti"; // Quadrados
+  if (typeRand > 0.7)
+    type = "serpentine"; // Retângulos longos
+  else if (typeRand > 0.9) type = "glitter"; // Círculos pequenos
 
-    return {
-        x: Math.random() * w,
-        y: top ? -20 : Math.random() * h - h,
-        type: type,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 10 + 5,
-        w: Math.random() * 5 + 3,
-        h: Math.random() * 30 + 10,
-        speedY: Math.random() * 5 + 2,
-        rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 10,
-        oscillation: Math.random() * Math.PI * 2
-    };
+  return {
+    x: Math.random() * w,
+    y: top ? -20 : Math.random() * h - h,
+    type: type,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    size: Math.random() * 10 + 5,
+    w: Math.random() * 5 + 3,
+    h: Math.random() * 30 + 10,
+    speedY: Math.random() * 5 + 2,
+    rotation: Math.random() * 360,
+    rotationSpeed: (Math.random() - 0.5) * 10,
+    oscillation: Math.random() * Math.PI * 2,
+  };
 }
 
 function stopConfettiStorm() {
-    cancelAnimationFrame(confettiAnimId);
-    const c = document.getElementById('confetti-canvas');
-    if (c) c.remove();
+  cancelAnimationFrame(confettiAnimId);
+  const c = document.getElementById("confetti-canvas");
+  if (c) c.remove();
 }
 
 // Inicializa
-document.addEventListener('DOMContentLoaded', () => {
-    init();
+document.addEventListener("DOMContentLoaded", () => {
+  init();
 });
