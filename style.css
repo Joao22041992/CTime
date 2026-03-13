@@ -16,7 +16,7 @@
   --neon-keyword: #0073ff; /* Ciano Ultra */
   --neon-string: #e03535; /* Laranja Neon */
   --neon-function: #d0d0d0; /* Amarelo Laser */
-  --neon-number: #00FF00; /* Verde Hacker */
+  --neon-number: #00ff00; /* Verde Hacker */
   --neon-comment: #ffffff; /* Azul Comentário Vibrante */
 }
 
@@ -111,10 +111,18 @@ pre {
   background-color: var(--code-bg);
   padding: 15px;
   border-radius: 5px;
-  font-family: "Consolas", "Courier New", monospace;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
   overflow-x: auto;
   margin-bottom: 20px;
   border: 1px solid #333;
+}
+
+code {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .c-keyword {
@@ -287,7 +295,7 @@ button.btn-show-answer:hover {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1.5rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 #menu-toggle:hover {
@@ -314,7 +322,11 @@ body.menu-hidden aside {
   background-color: var(--bg-panel);
   color: var(--text-main);
   border: 1px solid #333;
-  width: clamp(35px, 5vw, 50px); /* Responsivo: Mín 35px, Ideal 5% da tela, Máx 50px */
+  width: clamp(
+    35px,
+    5vw,
+    50px
+  ); /* Responsivo: Mín 35px, Ideal 5% da tela, Máx 50px */
   height: clamp(35px, 5vw, 50px); /* Mantém a proporção quadrada */
   border-radius: 50%;
   display: flex;
@@ -322,8 +334,10 @@ body.menu-hidden aside {
   justify-content: center;
   text-decoration: none;
   font-size: 1.2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
 
 .contact-btn img {
@@ -339,11 +353,11 @@ body.menu-hidden aside {
 }
 
 .contact-btn.email:hover {
-  background-color: #EA4335; /* Vermelho estilo Gmail */
+  background-color: #ea4335; /* Vermelho estilo Gmail */
 }
 
 .contact-btn.whatsapp:hover {
-  background-color: #25D366; /* Verde do WhatsApp */
+  background-color: #25d366; /* Verde do WhatsApp */
 }
 
 /* --- Responsividade (Mobile e Tablets) --- */
@@ -450,7 +464,9 @@ body.menu-hidden aside {
   font-size: 10.5pt;
   padding: 5px;
   outline: none;
-  transition: box-shadow 0.2s, border-color 0.2s;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
   display: inline-block;
 }
 
@@ -487,14 +503,29 @@ body.menu-hidden aside {
 }
 
 /* High Intensity Syntax Highlight Classes */
-.neon-k { color: var(--neon-keyword); text-shadow: 0 0 2px rgba(0, 255, 255, 0.3); }
-.neon-s { color: var(--neon-string); text-shadow: 0 0 2px rgba(255, 85, 0, 0.3); }
-.neon-f { color: var(--neon-function); text-shadow: 0 0 2px rgba(255, 255, 0, 0.3); }
-.neon-n { color: var(--neon-number); text-shadow: 0 0 2px rgba(0, 255, 0, 0.3); }
-.neon-c { color: var(--neon-comment); font-style: italic; }
+.neon-k {
+  color: var(--neon-keyword);
+  text-shadow: 0 0 2px rgba(0, 255, 255, 0.3);
+}
+.neon-s {
+  color: var(--neon-string);
+  text-shadow: 0 0 2px rgba(255, 85, 0, 0.3);
+}
+.neon-f {
+  color: var(--neon-function);
+  text-shadow: 0 0 2px rgba(255, 255, 0, 0.3);
+}
+.neon-n {
+  color: var(--neon-number);
+  text-shadow: 0 0 2px rgba(0, 255, 0, 0.3);
+}
+.neon-c {
+  color: var(--neon-comment);
+  font-style: italic;
+}
 .neon-bg-success {
   border-color: var(--neon-number);
-  box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
+  box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
 /* --- WIDGET DE DESPERTADOR --- */
@@ -506,7 +537,7 @@ body.menu-hidden aside {
   border: 1px solid #444;
   border-radius: 8px;
   padding: 10px 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   z-index: 1500;
   display: flex;
   align-items: center;
@@ -515,7 +546,7 @@ body.menu-hidden aside {
 }
 
 #timer-display {
-  font-family: 'Consolas', monospace;
+  font-family: "Consolas", monospace;
   font-size: 1.4rem;
   font-weight: bold;
   color: var(--neon-keyword);
@@ -530,7 +561,9 @@ body.menu-hidden aside {
   cursor: pointer;
   font-size: 1rem;
   margin: 0 3px;
-  transition: transform 0.2s, color 0.2s;
+  transition:
+    transform 0.2s,
+    color 0.2s;
 }
 
 .timer-controls button:hover {
@@ -546,7 +579,6 @@ body.menu-hidden aside {
   border: 2px solid var(--neon-string);
   box-shadow: 0 0 50px var(--neon-string);
   text-align: center;
-  animation: shake 0.5s infinite;
 }
 
 .alarm-popup h2 {
@@ -576,17 +608,39 @@ body.menu-hidden aside {
 }
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 /* --- WIDGET DE ÁUDIO --- */
@@ -598,7 +652,7 @@ body.menu-hidden aside {
   border: 1px solid #444;
   border-radius: 30px; /* Mais arredondado */
   padding: 8px 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   z-index: 1500;
   display: flex;
   align-items: center;
@@ -631,3 +685,28 @@ body.menu-hidden aside {
   padding-right: 5px;
 }
 
+/* --- EFEITO DE FOGOS DE ARTIFÍCIO --- */
+@keyframes firework-explode {
+  0% {
+    transform: translateY(0px) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(var(--random-x, 0px), var(--random-y, -200px)) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--random-x, 0px), var(--random-y, -400px)) scale(0);
+    opacity: 0;
+  }
+}
+
+.firework-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: firework-explode 2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
