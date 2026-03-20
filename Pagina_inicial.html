@@ -6,31 +6,236 @@
     <title>Curso de linguagem C</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/png" href="imagenslogo.png" />
+    <!-- OTIMIZAÇÃO: Pre-conexão para acelerar o carregamento de fontes e Firebase -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://firestore.googleapis.com"
+      crossorigin
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Ícones FontAwesome (Opcional, para o ícone de menu) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
-    <button id="menu-toggle" title="Alternar Menu">☰</button>
-    <aside>
-      <div class="logo">
-        <img src="imagenslogo.png" alt="Logo C Time" style="max-width: 100%" />
-      </div>
-      <nav id="nav-menu">
-        <!-- Menu gerado via JS -->
-      </nav>
-      <div class="user-stats">
-        <div id="user-level">Nível: 1</div>
-        <div id="user-xp">XP: 0 / 100</div>
-      </div>
-    </aside>
+    <script type="module">
+      import { auth, db } from "./firebase-config.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import {
+        collection,
+        query,
+        where,
+        orderBy,
+        limit,
+        getDocs,
+        updateDoc,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    <main>
-      <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-      <div id="content-area">
-        <!-- Conteúdo injetado via JS -->
-      </div>
-    </main>
+      // Verifica se o usuário está logado. Se não estiver, manda de volta para o login.
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+        } else {
+          // --- LÓGICA DE PRESENÇA ONLINE OTIMIZADA (HEARTBEAT) ---
+          // Atualiza o status no Firebase a cada 5 minutos para manter o aluno "Online" no painel
+          let userLogDocRef = null; // Armazena a referência para não buscar toda vez
 
-    <script src="script.js"></script>
+          const updateOnlineStatus = async () => {
+            try {
+              // Se já temos a referência do doc, atualizamos direto (Muito mais rápido)
+              if (userLogDocRef) {
+                await updateDoc(userLogDocRef, {
+                  timestamp: new Date(),
+                });
+              } else {
+                // Primeira vez: Precisamos encontrar o documento
+                const logsRef = collection(db, "user_logs");
+                const q = query(
+                  logsRef,
+                  where("email", "==", user.email),
+                  orderBy("timestamp", "desc"),
+                  limit(1),
+                );
+                const snapshot = await getDocs(q);
+
+                if (!snapshot.empty) {
+                  userLogDocRef = snapshot.docs[0].ref; // Salva para o futuro
+                  // Atualiza timestamp
+                  await updateDoc(userLogDocRef, {
+                    timestamp: new Date(),
+                  });
+                } else {
+                  // CORREÇÃO: Se não existir log, CRIA um novo para o aluno aparecer no Dashboard
+                  userLogDocRef = await addDoc(logsRef, {
+                    name: user.displayName || user.email.split('@')[0],
+                    email: user.email,
+                    loginTime: new Date().toLocaleString(),
+                    timestamp: new Date()
+                  });
+                }
+              }
+            } catch (error) {
+              // Nota: Se der erro aqui, verifique o Console do Navegador. O Firebase pode pedir para criar um índice.
+              console.log("Heartbeat silencioso falhou:", error);
+            }
+          };
+
+          // OTIMIZAÇÃO: Prioriza o Acesso/Login.
+          // Atrasa o tracking do dashboard em 3 segundos para não competir com a autenticação inicial.
+          setTimeout(() => {
+            updateOnlineStatus(); 
+            setInterval(updateOnlineStatus, 5 * 60 * 1000);
+          }, 3000);
+        }
+      });
+
+      // Função de Logout
+      window.handleLogout = () => {
+        signOut(auth)
+          .then(() => {
+            // Redireciona para a página de login após o logout
+            window.location.href = "index.html";
+          })
+          .catch((error) => console.error("Erro ao fazer logout:", error));
+      };
+    </script>
+
+    <!-- Navbar Mobile (Apenas visível em telas menores) -->
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMenu"
+          aria-controls="sidebarMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand ms-2 fw-bold" href="#">C-Time</a>
+
+        <!-- Ícones de Contato -->
+        <div class="d-flex align-items-center ms-auto">
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=joaomateus89@gmail.com"
+            target="_blank"
+            class="nav-link text-light me-3"
+            title="Enviar E-mail"
+            ><i class="fas fa-envelope fa-lg"></i
+          ></a>
+          <a
+            href="https://wa.me/5521977084958"
+            target="_blank"
+            class="nav-link text-light"
+            title="Falar no WhatsApp"
+            ><i class="fab fa-whatsapp fa-lg"></i
+          ></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <!-- Sidebar (Sempre Offcanvas) -->
+      <aside
+        class="p-0 bg-dark text-white vh-100 offcanvas offcanvas-start border-end border-secondary"
+        tabindex="-1"
+        id="sidebarMenu"
+        aria-labelledby="sidebarMenuLabel"
+        style="z-index: 1045"
+      >
+        <div class="offcanvas-header border-bottom border-secondary">
+          <h5 class="offcanvas-title fw-bold text-info" id="sidebarMenuLabel">
+            Menu do Curso
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+            data-bs-target="#sidebarMenu"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div
+          class="offcanvas-body d-flex flex-column p-0 h-100 overflow-y-auto"
+        >
+          <!-- Logo -->
+          <div
+            class="p-4 text-center border-bottom border-secondary bg-black bg-opacity-25"
+          >
+            <img
+              src="imagenslogo.png"
+              alt="Logo C Time"
+              class="img-fluid"
+              style="max-height: 70px"
+            />
+          </div>
+
+          <!-- Menu de Navegação -->
+          <div id="nav-menu" class="list-group list-group-flush mb-auto">
+            <!-- Menu gerado via JS será injetado aqui com classes Bootstrap -->
+          </div>
+
+          <!-- Status do Usuário -->
+          <div
+            class="p-3 bg-black bg-opacity-25 border-top border-secondary mt-auto"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span id="user-level" class="badge bg-primary">Nível: 1</span>
+              <span id="user-xp" class="text-muted small">XP: 0 / 100</span>
+            </div>
+            <div class="d-grid">
+              <button
+                onclick="handleLogout()"
+                class="btn btn-danger btn-sm fw-bold"
+              >
+                <i class="fas fa-sign-out-alt me-2"></i>Sair
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Conteúdo Principal -->
+      <main class="px-md-4">
+        <!-- Barra de Progresso Superior -->
+        <div
+          class="progress mb-4 sticky-top shadow-sm"
+          style="height: 6px; z-index: 1020; top: 70px"
+        >
+          <div
+            class="progress-bar bg-info"
+            id="progress-bar"
+            role="progressbar"
+            style="width: 0%"
+          ></div>
+        </div>
+
+        <!-- Área de Conteúdo do Curso -->
+        <div id="content-area" class="pb-5">
+          <!-- Conteúdo injetado via JS -->
+        </div>
+      </main>
+    </div>
+
+    <!-- OTIMIZAÇÃO: Carregamento separado e assíncrono -->
+    <script src="dados.js" defer></script>
+    <script src="script.js" defer></script>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

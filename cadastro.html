@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Time - Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imagenslogo.png" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+        .btn-gradient {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="w-full max-w-lg">
+        <div id="message-box" class="mb-4 p-4 rounded-lg hidden text-center text-sm font-medium"></div>
+
+        <div class="glass-card rounded-2xl p-8 shadow-2xl">
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Criar Conta</h2>
+            
+            <form id="signup-form">
+                <div class="mb-4">
+                    <label class="block text-gray-400 text-sm mb-2">Nome Completo</label>
+                    <input type="text" id="name" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="Seu nome">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-400 text-sm mb-2">E-mail</label>
+                    <input type="email" id="email" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="exemplo@email.com">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-400 text-sm mb-2">Senha</label>
+                    <input type="password" id="password" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="••••••••">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-400 text-sm mb-2">Confirmar Senha</label>
+                    <input type="password" id="confirm-password" required class="input-field w-full px-4 py-3 rounded-lg text-white" placeholder="••••••••">
+                </div>
+
+                <button type="submit" id="btn-signup" class="btn-gradient w-full py-3 rounded-lg text-white font-semibold shadow-lg mb-4">
+                    Finalizar Cadastro
+                </button>
+            </form>
+
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">
+                    Já tem uma conta? 
+                    <a href="index.html" class="text-blue-400 font-medium hover:underline ml-1">Fazer Login</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Rodapé de Contato -->
+        <div class="flex justify-center gap-4 mt-8">
+            <a href="mailto:joaomateus89@gmail.com" class="transition-transform hover:scale-110" title="Enviar E-mail">
+                <img src="e-mail.jpg" alt="E-mail" class="w-10 h-10 rounded-full border border-white/20 shadow-lg" onerror="this.src='https://via.placeholder.com/40?text=@'">
+            </a>
+            <a href="https://wa.me/5521977084958" target="_blank" class="transition-transform hover:scale-110" title="Falar no WhatsApp">
+                <img src="whatsapp.jpg" alt="WhatsApp" class="w-10 h-10 rounded-full border border-white/20 shadow-lg" onerror="this.src='https://via.placeholder.com/40?text=W'">
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, createUserWithEmailAndPassword, updateProfile } from './firebase-config.js';
+
+        const signupForm = document.getElementById('signup-form');
+        const messageBox = document.getElementById('message-box');
+        const btnSignup = document.getElementById('btn-signup');
+
+        function showMessage(text, isError = true) {
+            messageBox.innerText = text;
+            messageBox.className = `mb-4 p-4 rounded-lg text-center text-sm font-medium ${
+                isError 
+                ? "bg-red-500/20 text-red-400 border border-red-500/50" 
+                : "bg-green-500/20 text-green-400 border border-green-500/50"
+            }`;
+            messageBox.classList.remove('hidden');
+        }
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Validações básicas
+            if (password !== confirmPassword) {
+                return showMessage("As senhas não coincidem!");
+            }
+            if (password.length < 6) {
+                return showMessage("A senha deve ter no mínimo 6 caracteres.");
+            }
+
+            btnSignup.innerText = "Criando conta...";
+            btnSignup.disabled = true;
+
+            try {
+                // 1. Criar o usuário no Firebase Auth
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // 2. Atualizar o perfil com o nome digitado
+                await updateProfile(userCredential.user, {
+                    displayName: name
+                });
+
+                showMessage("Conta criada com sucesso! Redirecionando...", false);
+                
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 2000);
+
+            } catch (error) {
+                console.error(error);
+                let errorMsg = "Erro ao criar conta.";
+                if (error.code === 'auth/email-already-in-use') errorMsg = "Este e-mail já está em uso.";
+                if (error.code === 'auth/invalid-email') errorMsg = "E-mail inválido.";
+                
+                showMessage(errorMsg);
+                btnSignup.innerText = "Finalizar Cadastro";
+                btnSignup.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

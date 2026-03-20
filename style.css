@@ -14,10 +14,10 @@
   --neon-bg: #050505; /* Preto Profundo */
   --neon-text: #ffffff;
   --neon-keyword: #0073ff; /* Ciano Ultra */
-  --neon-string: #e03535; /* Laranja Neon */
-  --neon-function: #d0d0d0; /* Amarelo Laser */
+  --neon-string: #ff4500; /* Laranja Neon */
+  --neon-function: #ffff00; /* Amarelo Laser */
   --neon-number: #00ff00; /* Verde Hacker */
-  --neon-comment: #ffffff; /* Azul Comentário Vibrante */
+  --neon-comment: #00BFFF; /* Azul Comentário Vibrante */
 }
 
 * {
@@ -30,54 +30,26 @@
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+  /* display: flex; REMOVIDO PARA USAR BOOTSTRAP */
+  /* height: 100vh; */
+  /* overflow: hidden; */
+  overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+  /* Adiciona padding no topo para compensar a navbar fixa */
+  padding-top: 70px;
 }
 
 /* Sidebar */
-aside {
-  width: 250px;
-  background-color: var(--bg-panel);
-  border-right: 1px solid #333;
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
-  padding: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--accent);
-  border-bottom: 1px solid #333;
-}
-
-nav button {
-  background: none;
-  border: none;
-  color: var(--text-main);
-  padding: 15px 20px;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-  transition: 0.2s;
-  border-left: 3px solid transparent;
-}
-
-nav button:hover {
-  background-color: #2a2d2e;
-}
-nav button.active {
-  background-color: #37373d;
-  border-left-color: var(--accent);
-}
+/* Estilos antigos da Sidebar removidos/comentados para o Bootstrap assumir */
 
 /* Main Content */
 main {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
+  /* flex: 1; */
+  /* padding: 40px; */
+  /* overflow-y: auto; */
   position: relative;
+  min-height: 100vh;
+  /* OTIMIZAÇÃO: Melhora a renderização do navegador para conteúdos longos */
+  content-visibility: auto; 
 }
 
 /* Progress Bar */
@@ -116,7 +88,7 @@ pre {
   font-weight: 600;
   overflow-x: auto;
   margin-bottom: 20px;
-  border: 1px solid #333;
+  border: 1px solid #3b3838;
 }
 
 code {
@@ -140,14 +112,18 @@ code {
 
 /* Exercises */
 .exercise-card {
-  background-color: var(--bg-panel);
+  background-color: #000;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-  border: 1px solid #333;
+  border: 1px solid #252525;
   transition:
     border-color 0.3s,
     background-color 0.3s;
+}
+
+.exercise-card h3 {
+  color: #fff;
 }
 
 .exercise-card.correct-container {
@@ -168,7 +144,7 @@ select {
   width: 100%;
   padding: 10px;
   background-color: var(--code-bg);
-  border: 1px solid #444;
+  border: 1px solid #696767;
   color: var(--text-main);
   border-radius: 4px;
   font-family: "Consolas", monospace;
@@ -218,14 +194,6 @@ button.btn-check:hover {
 .status-incorrect {
   color: var(--error);
   font-weight: bold;
-}
-
-.user-stats {
-  margin-top: auto; /* Empurra o bloco para o final da sidebar */
-  padding: 20px;
-  border-top: 1px solid #333;
-  font-size: 0.9rem;
-  color: var(--text-main);
 }
 
 #user-level {
@@ -321,7 +289,7 @@ body.menu-hidden aside {
 .contact-btn {
   background-color: var(--bg-panel);
   color: var(--text-main);
-  border: 1px solid #333;
+  border: 1px solid #333333f5;
   width: clamp(
     35px,
     5vw,
@@ -510,7 +478,7 @@ body.menu-hidden aside {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(37, 37, 37, 0.85);
   backdrop-filter: blur(5px);
   z-index: 2000;
   display: flex;
@@ -563,7 +531,7 @@ body.menu-hidden aside {
 
 /* Inputs dentro do quadro negro */
 .blackboard-input {
-  background: #111;
+  background: #333333;
   border: 1px solid #444;
   color: var(--neon-string);
   font-family: "Consolas", monospace;
@@ -612,23 +580,24 @@ body.menu-hidden aside {
 /* High Intensity Syntax Highlight Classes */
 .neon-k {
   color: var(--neon-keyword);
-  text-shadow: 0 0 2px rgba(0, 255, 255, 0.3);
+  text-shadow: 0 0 8px var(--neon-keyword);
 }
 .neon-s {
   color: var(--neon-string);
-  text-shadow: 0 0 2px rgba(255, 85, 0, 0.3);
+  text-shadow: 0 0 8px var(--neon-string);
 }
 .neon-f {
   color: var(--neon-function);
-  text-shadow: 0 0 2px rgba(255, 255, 0, 0.3);
+  text-shadow: 0 0 8px var(--neon-function);
 }
 .neon-n {
   color: var(--neon-number);
-  text-shadow: 0 0 2px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 8px var(--neon-number);
 }
 .neon-c {
   color: var(--neon-comment);
   font-style: italic;
+  text-shadow: 0 0 8px var(--neon-comment);
 }
 .neon-bg-success {
   border-color: var(--neon-number);
@@ -811,4 +780,15 @@ body.menu-hidden aside {
 #audio-drag-handle {
   cursor: move; /* Cursor de movimento */
   padding-right: 5px;
+}
+
+/* --- Animação de Erro (Shake) --- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake-animation {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }

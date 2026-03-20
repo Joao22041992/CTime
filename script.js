@@ -43,20 +43,14 @@ const introUnitBank = [
     <span class="neon-f">printf</span>(<span class="neon-s">"Relatório de %s (Idade: %d):"</span>, nome, idade);
     <span class="neon-f">printf</span>(<span class="neon-s">"Altura: %.0f mm ou %.3f km"</span>, altura_mm, altura_km);
     <span class="neon-f">printf</span>(<span class="neon-s">"IMC Calculado: %.2f"</span>, imc);
-    <span class="neon-f">printf</span>(<span class="neon-s">"Relatório de %s (Idade: %d):"</span>, nome, idade);
-    <span class="neon-f">printf</span>(<span class="neon-s">"Altura: %.0f mm ou %.3f km"</span>, altura_mm, altura_km);
-    <span class="neon-f">printf</span>(<span class="neon-s">"IMC Calculado: %.2f"</span>, imc);
 
 
     <span class="neon-c">// --- 5. Lógica Condicional (Decisão) ---</span>
     <span class="neon-k">if</span> (imc < <span class="neon-n">18.5</span>) {
         <span class="neon-f">printf</span>(<span class="neon-s">"Status: Abaixo do peso"</span>);
-        <span class="neon-f">printf</span>(<span class="neon-s">"Status: Abaixo do peso"</span>);
     } <span class="neon-k">else</span> <span class="neon-k">if</span> (imc < <span class="neon-n">25</span>) {
         <span class="neon-f">printf</span>(<span class="neon-s">"Status: Peso Ideal"</span>);
-        <span class="neon-f">printf</span>(<span class="neon-s">"Status: Peso Ideal"</span>);
     } <span class="neon-k">else</span> {
-        <span class="neon-f">printf</span>(<span class="neon-s">"Status: Acima do peso"</span>);
         <span class="neon-f">printf</span>(<span class="neon-s">"Status: Acima do peso"</span>);
     }
 
@@ -136,6 +130,7 @@ const introUnitBank = [
     theory: `
             <h2>O Compilador de Notas</h2>
             <p>Sua nova missão: construir um sistema que calcula a média de um aluno e decide seu status. Cada exercício adiciona uma peça ao quebra-cabeça no "Quadro Negro".</p>
+            <p>Sua missão inicial: construir um sistema que calcula a média de um aluno e decide seu status dentro da função principal.</p>
             
             <div class="blackboard-container" style="margin: 25px 0; width: 100%;">
                 <div class="blackboard-header">
@@ -171,6 +166,58 @@ const introUnitBank = [
         <span class="neon-f">printf</span>(<span class="neon-s">"Status: Reprovado.\\n"</span>);
     }
 
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
+}</div>
+            </div>
+
+            <hr style="border-color: #333; margin: 40px 0;">
+            
+            <h2>Nível 2: Modularizando com Funções</h2>
+            <p>Agora vamos elevar o nível. Em códigos profissionais, separamos a lógica em <strong>Funções</strong> fora da main. Analise o gabarito abaixo antes de prosseguir.</p>
+
+            <div class="blackboard-container" style="margin: 25px 0; width: 100%;">
+                <div class="blackboard-header">
+                    <span>Gabarito de Referência: Versão Modularizada</span>
+                </div>
+                <div class="blackboard-content">
+<span class="neon-k">#include</span> &lt;stdio.h&gt;
+
+<span class="neon-c">// --- Função Auxiliar ---</span>
+<span class="neon-k">float</span> <span class="neon-f">calcular_media</span>(<span class="neon-k">float</span> a, <span class="neon-k">float</span> b, <span class="neon-k">float</span> c) {
+    <span class="neon-k">return</span> (a + b + c) / <span class="neon-n">3.0</span>;
+}
+
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-k">float</span> n1, n2, n3;
+    <span class="neon-f">scanf</span>(<span class="neon-s">"%f %f %f"</span>, &n1, &n2, &n3);
+    
+    <span class="neon-c">// Chamada da Função dentro da main</span>
+    <span class="neon-k">float</span> final = <span class="neon-f">calcular_media</span>(n1, n2, n3);
+    
+    <span class="neon-f">printf</span>(<span class="neon-s">"Média: %.1f"</span>, final);
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
+}</div>
+            </div>
+
+            <hr style="border-color: #333; margin: 40px 0;">
+            
+            <h2>Nível 3: Funções com Retorno</h2>
+            <p>Funções úteis geralmente processam dados e <strong>retornam</strong> um resultado para ser usado depois.</p>
+
+            <div class="blackboard-container" style="margin: 25px 0; width: 100%;">
+                <div class="blackboard-header">
+                    <span>Gabarito: Retornando Valores</span>
+                </div>
+                <div class="blackboard-content">
+<span class="neon-k">#include</span> &lt;stdio.h&gt;
+
+<span class="neon-k">int</span> <span class="neon-f">dobro</span>(<span class="neon-k">int</span> x) {
+    <span class="neon-k">return</span> x * <span class="neon-n">2</span>;
+}
+
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-k">int</span> d = <span class="neon-f">dobro</span>(<span class="neon-n">5</span>);
+    <span class="neon-f">printf</span>(<span class="neon-s">"%d"</span>, d);
     <span class="neon-k">return</span> <span class="neon-n">0</span>;
 }</div>
             </div>
@@ -243,6 +290,49 @@ const introUnitBank = [
         feedback:
           "Se não foi aprovado, a próxima verificação é se a média é suficiente para recuperação (>= 5.0).",
       },
+      // --- NOVOS EXERCÍCIOS DE FUNÇÕES ---
+      {
+        type: "fill",
+        question: "Defina o tipo de retorno da função 'calcular_media' (ela retorna um número decimal).",
+        codeSnippet: `// Definição da função fora da main\n___ calcular_media(float n1, float n2, float n3) {\n    return (n1 + n2 + n3) / 3.0;\n}`,
+        answer: "float",
+        feedback: "Como o resultado da média possui casas decimais, a função deve retornar 'float'.",
+      },
+      {
+        type: "choice",
+        question: "Qual a forma correta de CHAMAR essa função dentro da main?",
+        options: ["float m = calcular_media(n1, n2, n3);", "calcular_media;", "float m = float calcular_media();", "main(calcular_media);"],
+        answer: "float m = calcular_media(n1, n2, n3);",
+        feedback: "Para chamar a função, usamos seu nome seguido dos argumentos entre parênteses e atribuímos o retorno a uma variável.",
+      },
+      {
+        type: "code",
+        question: "Escreva a função 'verificar' completa. Ela deve receber a média e imprimir 'Aprovado' se for maior ou igual a 7.",
+        keywords: ["void", "verificar", "float", "if", "printf", "Aprovado"],
+        codeSnippet: `#include <stdio.h>\n\n// --- ESCREVA SUA FUNÇÃO AQUI ---\n// Dica: Use void pois ela só imprime, não retorna valor.\n\n\n\n// --- FIM DA FUNÇÃO ---\n\nint main() {\n    float nota = 8.5;\n    verificar(nota); // Chamada de teste\n    return 0;\n}`,
+        feedback: "Sua função deve começar com 'void verificar(float ...)' e conter um 'if' para o print.",
+      },
+      {
+        type: "fill",
+        question: "Qual palavra-chave usamos para devolver um valor de dentro da função?",
+        codeSnippet: `int obter_numero() {\n    ___ 10;\n}`,
+        answer: "return",
+        feedback: "A instrução 'return' encerra a função e envia o valor de volta para quem chamou.",
+      },
+      {
+        type: "choice",
+        question: "Se uma função é declarada como 'int calcular()', o que ela deve retornar?",
+        options: ["Um número inteiro", "Um número decimal (float)", "Nada (void)", "Um caractere"],
+        answer: "Um número inteiro",
+        feedback: "O tipo antes do nome da função ('int') define o tipo de dado que ela retorna.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função chamada 'somar' que recebe dois inteiros (a, b) e retorna a soma deles.",
+        keywords: ["int", "somar", "int", "return", "+"],
+        codeSnippet: `#include <stdio.h>\n\n// --- CRIE A FUNÇÃO 'somar' AQUI ---\n\n\n\n// ----------------------------------\n\nint main() {\n    int resultado = somar(10, 20);\n    printf("Soma: %d", resultado);\n    return 0;\n}`,
+        feedback: "Sua função deve ser 'int somar(int a, int b) { return a + b; }'.",
+      },
     ],
   },
 ];
@@ -250,20 +340,196 @@ const introUnitBank = [
 const courseData = [
   JSON.parse(JSON.stringify(introUnitBank[0])), // Começa com uma cópia da primeira unidade de introdução
   {
+    id: "func_basics",
+    title: "Funções",
+    theory: `
+            <h2>O Poder das Funções</h2>
+            <p>Até agora, escrevemos tudo dentro da <code>main</code>. Mas programas profissionais são divididos em <strong>Funções</strong> (sub-rotinas).</p>
+            <p>Uma função agrupa um bloco de código sob um nome, permitindo que você o chame quantas vezes precisar sem reescrever.</p>
+            
+            <div class="blackboard-container" style="margin: 25px 0; width: 100%;">
+                <div class="blackboard-header"><span>Exemplo: Função Simples (Void)</span></div>
+                <div class="blackboard-content">
+<span class="neon-k">void</span> <span class="neon-f">saudacao</span>() {
+    <span class="neon-f">printf</span>(<span class="neon-s">"Olá, Dev!\\n"</span>);
+}
+
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-f">saudacao</span>(); <span class="neon-c">// Chama a função</span>
+    <span class="neon-f">saudacao</span>(); <span class="neon-c">// Chama de novo</span>
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
+}</div>
+            </div>
+
+            <hr style="border-color: #333; margin: 40px 0;">
+            
+            <h2>Nível 2: Parâmetros e Retorno</h2>
+            <p>Funções se tornam poderosas quando podem receber dados (<strong>parâmetros</strong>) e devolver um resultado (<strong>retorno</strong>).</p>
+
+            <div class="blackboard-container" style="margin: 25px 0; width: 100%;">
+                <div class="blackboard-header">
+                    <span>Gabarito: Função com Parâmetros</span>
+                </div>
+                <div class="blackboard-content">
+<span class="neon-k">#include</span> &lt;stdio.h&gt;
+
+<span class="neon-c">// Função que recebe dois inteiros e retorna a soma</span>
+<span class="neon-k">int</span> <span class="neon-f">somar</span>(<span class="neon-k">int</span> a, <span class="neon-k">int</span> b) {
+    <span class="neon-k">return</span> a + b;
+}
+
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-k">int</span> resultado = <span class="neon-f">somar</span>(<span class="neon-n">10</span>, <span class="neon-n">5</span>); <span class="neon-c">// Chama a função com os valores</span>
+    <span class="neon-f">printf</span>(<span class="neon-s">"Soma: %d"</span>, resultado);
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
+}</div>
+            </div>`,
+    exercises: [
+      {
+        type: "fill",
+        question: "Qual palavra-chave indica que a função NÃO retorna valor (apenas executa uma ação)?",
+        codeSnippet: `___ mostrar_mensagem() { printf("Msg"); }`,
+        answer: "void",
+        feedback: "Void (vazio) é usado para funções que não devolvem um resultado numérico.",
+      },
+      {
+        type: "choice",
+        question: "O que são 'parâmetros' de uma função?",
+        options: [
+          "Variáveis globais",
+          "O valor que a função retorna",
+          "Variáveis locais que recebem os valores na chamada da função",
+          "O nome da função",
+        ],
+        answer: "Variáveis locais que recebem os valores na chamada da função",
+        feedback:
+          "Parâmetros são as 'entradas' que a função utiliza para realizar sua tarefa.",
+      },
+      {
+        type: "fill",
+        question:
+          "Complete a chamada da função 'calcular' passando as variáveis 'a' e 'b'.",
+        codeSnippet: `resultado = calcular(___, ___);`,
+        answer: "a, b",
+        feedback:
+          "Os argumentos passados na chamada da função devem corresponder aos parâmetros da sua definição.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função 'multiplicar' que recebe dois inteiros e retorna o produto deles.",
+        keywords: ["int", "multiplicar", "return", "*"],
+        codeSnippet: `#include <stdio.h>\n\n// --- CRIE SUA FUNÇÃO AQUI ---\n\n\n\n// ---------------------------\n\nint main() {\n    int produto = multiplicar(7, 3);\n    printf("Resultado: %d", produto);\n    return 0;\n}`,
+        feedback: "A função deve ter a assinatura 'int multiplicar(int a, int b)' e usar 'return a * b;'.",
+      },
+      {
+        type: "choice",
+        question: "Qual é o escopo de uma variável declarada DENTRO de uma função?",
+        options: ["Global (acessível em todo o arquivo)", "Local (acessível apenas dentro da função)", "Universal (acessível em outros arquivos)", "Estático (nunca morre)"],
+        answer: "Local (acessível apenas dentro da função)",
+        feedback: "Variáveis locais nascem e morrem junto com a execução da função onde foram criadas.",
+      },
+      {
+        type: "fill",
+        question: "Complete o protótipo de uma função que recebe dois números reais (float).",
+        codeSnippet: `float dividir(float a, ___ b);`,
+        answer: "float",
+        feedback: "É necessário especificar o tipo de dado para cada parâmetro individualmente.",
+      },
+      {
+        type: "fill",
+        question: "Para chamar uma função que não recebe argumentos, devemos usar parênteses ___.",
+        codeSnippet: `limpar_tela___;`,
+        answer: "()",
+        feedback: "Mesmo sem argumentos, os parênteses () são obrigatórios na chamada de função.",
+      },
+      {
+        type: "choice",
+        question: "O que acontece se uma função definida como 'void' tentar retornar um valor (ex: return 10;)?",
+        options: ["O valor é ignorado", "Erro de compilação", "O programa fecha", "A função vira int"],
+        answer: "Erro de compilação",
+        feedback: "Funções void não podem retornar valores. O compilador apontará um erro.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função 'maior' que recebe dois inteiros e retorna o maior deles.",
+        keywords: ["int", "maior", "if", "return", ">"],
+        codeSnippet: `#include <stdio.h>\n\n// --- CRIE SUA FUNÇÃO AQUI ---\n\n\n\n// ---------------------------\n\nint main() {\n    printf("Maior: %d", maior(10, 5));\n    return 0;\n}`,
+        feedback: "Dica: Use um 'if' para comparar 'a' e 'b' e retornar o vencedor.",
+      },
+      {
+        type: "fill",
+        question: "Separe múltiplos parâmetros na definição da função usando ___.",
+        codeSnippet: `void teste(int a___ int b) { }`,
+        answer: ",",
+        feedback: "A vírgula é usada para separar os argumentos na lista de parâmetros.",
+      },
+      {
+        type: "choice",
+        question: "Qual termo descreve quando uma função chama a si mesma?",
+        options: ["Iteração", "Recursão", "Inversão", "Duplicação"],
+        answer: "Recursão",
+        feedback: "Recursão é uma técnica poderosa onde a função invoca a si própria para resolver subproblemas.",
+      },
+      {
+        type: "fill",
+        question: "Se quisermos deixar explícito que uma função NÃO aceita parâmetros, usamos ___ nos parênteses.",
+        codeSnippet: `int obter_dado(___) { return 5; }`,
+        answer: "void",
+        feedback: "Colocar 'void' na lista de parâmetros indica estritamente que a função não recebe nada.",
+      },
+      // --- NOVOS EXERCÍCIOS DE CODIFICAÇÃO (PRÁTICA) ---
+      {
+        type: "code",
+        question: "Crie uma função 'boas_vindas' que não recebe parâmetros e imprime 'Bem-vindo'.",
+        keywords: ["void", "boas_vindas", "printf", "Bem-vindo"],
+        codeSnippet: `#include <stdio.h>\n\n// --- Escreva sua função aqui ---\n\n\n\nint main() {\n    boas_vindas();\n    return 0;\n}`,
+        feedback: "A função deve ser do tipo void e conter um printf com a mensagem exata.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função 'subtrair' que recebe dois inteiros (a, b) e retorna a subtração de a - b.",
+        keywords: ["int", "subtrair", "return", "-"],
+        codeSnippet: `#include <stdio.h>\n\n// --- Escreva sua função aqui ---\n\n\n\nint main() {\n    int res = subtrair(10, 4);\n    printf("%d", res);\n    return 0;\n}`,
+        feedback: "A assinatura deve ser 'int subtrair(int a, int b)' e deve retornar a diferença.",
+      },
+      {
+        type: "code",
+        question: "Implemente a função 'verificar_idade' que recebe um inteiro. Se for >= 18 imprima 'Maior', senão 'Menor'.",
+        keywords: ["void", "verificar_idade", "if", "else", "printf"],
+        codeSnippet: `#include <stdio.h>\n\n// --- Escreva sua função aqui ---\n\n\n\nint main() {\n    verificar_idade(20);\n    return 0;\n}`,
+        feedback: "Use if/else para verificar a condição da idade.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função 'contador' que recebe um número N e imprime de 1 até N usando um laço for.",
+        keywords: ["void", "contador", "for", "printf"],
+        codeSnippet: `#include <stdio.h>\n\n// --- Escreva sua função aqui ---\n\n\n\nint main() {\n    contador(5);\n    return 0;\n}`,
+        feedback: "Use um laço for(int i=1; i<=n; i++) para contar.",
+      },
+      {
+        type: "code",
+        question: "Crie uma função 'area_retangulo' que recebe base e altura (int) e retorna a área.",
+        keywords: ["int", "area_retangulo", "return", "*"],
+        codeSnippet: `#include <stdio.h>\n\n// --- Escreva sua função aqui ---\n\n\n\nint main() {\n    int a = area_retangulo(10, 5);\n    printf("Area: %d", a);\n    return 0;\n}`,
+        feedback: "Multiplique a base pela altura e retorne o resultado.",
+      },
+    ],
+  },
+  {
     id: 1,
     title: "Unidade 1: Fundamentos",
     theory: `
             <h2>Estrutura Básica e Tipos</h2>
             <p>Bem-vindo ao C! Todo programa começa com bibliotecas e uma função principal.</p>
-            <pre><span class="c-keyword">#include</span> <stdio.h> <span class="c-comment">// Biblioteca de Entrada/Saída</span>
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">#include</span> &lt;stdio.h&gt; <span class="neon-c">// Biblioteca de Entrada/Saída</span>
 
-<span class="c-keyword">int</span> <span class="c-function">main</span>() {
-    <span class="c-keyword">int</span> idade = <span class="c-number">25</span>;           <span class="c-comment">// Inteiro</span>
-    <span class="c-keyword">float</span> altura = <span class="c-number">1.75</span>;      <span class="c-comment">// Decimal</span>
-    <span class="c-keyword">char</span> letra = <span class="c-string">'A'</span>;         <span class="c-comment">// Caractere único</span>
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-k">int</span> idade = <span class="neon-n">25</span>;           <span class="neon-c">// Inteiro</span>
+    <span class="neon-k">float</span> altura = <span class="neon-n">1.75</span>;      <span class="neon-c">// Decimal</span>
+    <span class="neon-k">char</span> letra = <span class="neon-s">'A'</span>;         <span class="neon-c">// Caractere único</span>
     
-    <span class="c-function">printf</span>(<span class="c-string">"Olá Mundo"</span>);
-    <span class="c-keyword">return</span> <span class="c-number">0</span>;
+    <span class="neon-f">printf</span>(<span class="neon-s">"Olá Mundo"</span>);
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
 }</pre>
             <p>Para ler dados do usuário, usamos o <code>scanf</code>. Note o uso do <code>&</code> para indicar o endereço da variável.</p>
         `,
@@ -388,10 +654,10 @@ const courseData = [
     theory: `
             <h2>Condicionais</h2>
             <p>Usamos <code>if</code> e <code>else</code> para tomar decisões baseadas em lógica booleana.</p>
-            <pre><span class="c-keyword">if</span> (nota >= <span class="c-number">7</span>) {
-    <span class="c-function">printf</span>(<span class="c-string">"Aprovado"</span>);
-} <span class="c-keyword">else</span> {
-    <span class="c-function">printf</span>(<span class="c-string">"Reprovado"</span>);
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">if</span> (nota >= <span class="neon-n">7</span>) {
+    <span class="neon-f">printf</span>(<span class="neon-s">"Aprovado"</span>);
+} <span class="neon-k">else</span> {
+    <span class="neon-f">printf</span>(<span class="neon-s">"Reprovado"</span>);
 }</pre>
             <p>Para múltiplas escolhas de valores exatos, o <code>switch</code> é mais limpo.</p>
         `,
@@ -483,7 +749,7 @@ const courseData = [
     theory: `
             <h2>Laços e Arrays</h2>
             <p>O laço <code>for</code> é ideal quando sabemos o número de repetições.</p>
-            <pre><span class="c-keyword">for</span>(<span class="c-keyword">int</span> i=<span class="c-number">0</span>; i < <span class="c-number">10</span>; i++) { ... }</pre>
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">for</span>(<span class="neon-k">int</span> i=<span class="neon-n">0</span>; i < <span class="neon-n">10</span>; i++) { ... }</pre>
             <p>Vetores (Arrays) armazenam múltiplos dados do mesmo tipo. Strings são vetores de <code>char</code>.</p>
         `,
     exercises: [
@@ -577,8 +843,8 @@ const courseData = [
     theory: `
             <h2>Memória e Estruturas</h2>
             <p><strong>Ponteiros</strong> armazenam endereços de memória. Usamos <code>*</code> para declarar ou acessar o valor.</p>
-            <pre><span class="c-keyword">int</span> x = <span class="c-number">10</span>;
-<span class="c-keyword">int</span> *ptr = &x;</pre>
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">int</span> x = <span class="neon-n">10</span>;
+<span class="neon-k">int</span> *ptr = &x;</pre>
             <p><strong>Structs</strong> permitem agrupar variáveis de tipos diferentes.</p>
         `,
     exercises: [
@@ -676,8 +942,8 @@ const courseData = [
     theory: `
             <h2>Alocação Dinâmica e Arquivos</h2>
             <p><code>malloc</code> reserva memória durante a execução. <code>free</code> libera.</p>
-            <pre><span class="c-keyword">int</span> *v = (<span class="c-keyword">int</span>*) <span class="c-function">malloc</span>(<span class="c-number">5</span> * <span class="c-keyword">sizeof</span>(<span class="c-keyword">int</span>));
-<span class="c-function">free</span>(v);</pre>
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">int</span> *v = (<span class="neon-k">int</span>*) <span class="neon-f">malloc</span>(<span class="neon-n">5</span> * <span class="neon-k">sizeof</span>(<span class="neon-k">int</span>));
+<span class="neon-f">free</span>(v);</pre>
             <p>Para arquivos, usamos ponteiros do tipo <code>FILE*</code>.</p>
         `,
     exercises: [
@@ -718,18 +984,18 @@ const courseData = [
     theory: `
             <h2>Organizando o Código</h2>
             <p>Funções são blocos de código reutilizáveis que realizam uma tarefa específica. Elas ajudam a organizar e modularizar seu programa.</p>
-            <pre><span class="c-comment">// Protótipo da função (declaração)</span>
-<span class="c-keyword">int</span> <span class="c-function">somar</span>(<span class="c-keyword">int</span> a, <span class="c-keyword">int</span> b);
+            <pre style="background-color: var(--neon-bg);"><span class="neon-c">// Protótipo da função (declaração)</span>
+<span class="neon-k">int</span> <span class="neon-f">somar</span>(<span class="neon-k">int</span> a, <span class="neon-k">int</span> b);
 
-<span class="c-keyword">int</span> <span class="c-function">main</span>() {
-    <span class="c-keyword">int</span> resultado = <span class="c-function">somar</span>(<span class="c-number">5</span>, <span class="c-number">3</span>); <span class="c-comment">// Chamada</span>
-    <span class="c-function">printf</span>(<span class="c-string">"Resultado: %d"</span>, resultado);
-    <span class="c-keyword">return</span> <span class="c-number">0</span>;
+<span class="neon-k">int</span> <span class="neon-f">main</span>() {
+    <span class="neon-k">int</span> resultado = <span class="neon-f">somar</span>(<span class="neon-n">5</span>, <span class="neon-n">3</span>); <span class="neon-c">// Chamada</span>
+    <span class="neon-f">printf</span>(<span class="neon-s">"Resultado: %d"</span>, resultado);
+    <span class="neon-k">return</span> <span class="neon-n">0</span>;
 }
 
-<span class="c-comment">// Definição da função</span>
-<span class="c-keyword">int</span> <span class="c-function">somar</span>(<span class="c-keyword">int</span> a, <span class="c-keyword">int</span> b) {
-    <span class="c-keyword">return</span> a + b;
+<span class="neon-c">// Definição da função</span>
+<span class="neon-k">int</span> <span class="neon-f">somar</span>(<span class="neon-k">int</span> a, <span class="neon-k">int</span> b) {
+    <span class="neon-k">return</span> a + b;
 }</pre>
             <p>Uma função tem um tipo de retorno, um nome e pode receber parâmetros (entradas).</p>
         `,
@@ -808,11 +1074,11 @@ const courseData = [
     theory: `
             <h2>Aprofundando em Ponteiros</h2>
             <p>Ponteiros são variáveis poderosas que armazenam endereços de memória. Eles são essenciais para manipulação direta de dados e otimização.</p>
-            <pre><span class="c-keyword">int</span> valor = <span class="c-number">50</span>;
-<span class="c-keyword">int</span> *ptr = &valor; <span class="c-comment">// ptr aponta para valor</span>
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">int</span> valor = <span class="neon-n">50</span>;
+<span class="neon-k">int</span> *ptr = &valor; <span class="neon-c">// ptr aponta para valor</span>
 
-<span class="c-function">printf</span>(<span class="c-string">"%d"</span>, *ptr); <span class="c-comment">// Exibe 50</span>
-*ptr = <span class="c-number">100</span>;         <span class="c-comment">// Altera valor para 100</span></pre>
+<span class="neon-f">printf</span>(<span class="neon-s">"%d"</span>, *ptr); <span class="neon-c">// Exibe 50</span>
+*ptr = <span class="neon-n">100</span>;         <span class="neon-c">// Altera valor para 100</span></pre>
             <p>Além de apontar para variáveis simples, ponteiros são usados para percorrer arrays e passar dados por referência para funções.</p>
         `,
     exercises: [
@@ -914,20 +1180,20 @@ const courseData = [
     theory: `
             <h2>Explorando Vetores (Arrays)</h2>
             <p>Vetores, ou arrays, são uma das estruturas de dados mais fundamentais. Eles permitem armazenar uma coleção de itens do mesmo tipo em um bloco contíguo de memória. O acesso a cada item é feito através de um índice numérico.</p>
-            <pre><span class="c-comment">// Declaração de um vetor de 5 inteiros</span>
-<span class="c-keyword">int</span> numeros[<span class="c-number">5</span>];
+            <pre style="background-color: var(--neon-bg);"><span class="neon-c">// Declaração de um vetor de 5 inteiros</span>
+<span class="neon-k">int</span> numeros[<span class="neon-n">5</span>];
 
-<span class="c-comment">// Inicialização na declaração</span>
-<span class="c-keyword">float</span> notas[] = {<span class="c-number">7.5</span>, <span class="c-number">8.0</span>, <span class="c-number">9.5</span>};
+<span class="neon-c">// Inicialização na declaração</span>
+<span class="neon-k">float</span> notas[] = {<span class="neon-n">7.5</span>, <span class="neon-n">8.0</span>, <span class="neon-n">9.5</span>};
 
-<span class="c-comment">// Acessando e modificando elementos</span>
-numeros[<span class="c-number">0</span>] = <span class="c-number">10</span>; <span class="c-comment">// O primeiro elemento está no índice 0</span>
-numeros[<span class="c-number">4</span>] = <span class="c-number">50</span>; <span class="c-comment">// O último elemento está no índice 4</span>
+<span class="neon-c">// Acessando e modificando elementos</span>
+numeros[<span class="neon-n">0</span>] = <span class="neon-n">10</span>; <span class="neon-c">// O primeiro elemento está no índice 0</span>
+numeros[<span class="neon-n">4</span>] = <span class="neon-n">50</span>; <span class="neon-c">// O último elemento está no índice 4</span>
 
-<span class="c-function">printf</span>(<span class="c-string">"Primeiro número: %d"</span>, numeros[<span class="c-number">0</span>]);</pre>
+<span class="neon-f">printf</span>(<span class="neon-s">"Primeiro número: %d"</span>, numeros[<span class="neon-n">0</span>]);</pre>
             <p>É muito comum usar laços <code>for</code> para percorrer todos os elementos de um vetor.</p>
-            <pre><span class="c-keyword">for</span> (<span class="c-keyword">int</span> i = <span class="c-number">0</span>; i < <span class="c-number">3</span>; i++) {
-    <span class="c-function">printf</span>(<span class="c-string">"Nota %d: %.1f\\n"</span>, i + <span class="c-number">1</span>, notas[i]);
+            <pre style="background-color: var(--neon-bg);"><span class="neon-k">for</span> (<span class="neon-k">int</span> i = <span class="neon-n">0</span>; i < <span class="neon-n">3</span>; i++) {
+    <span class="neon-f">printf</span>(<span class="neon-s">"Nota %d: %.1f\\n"</span>, i + <span class="neon-n">1</span>, notas[i]);
 }</pre>
             <p>O nome de um vetor, como <code>numeros</code>, na verdade representa o endereço de memória do seu primeiro elemento. Por isso, vetores e ponteiros estão intimamente ligados em C.</p>
         `,
@@ -1062,28 +1328,31 @@ function init() {
     });
   });
 
+  // LÓGICA CORRIGIDA: Recupera qual unidade de introdução estava ativa
+  // Se o usuário atualizou a página, ele deve ver o mesmo desafio que estava antes
+  const savedIntroIndex = localStorage.getItem("currentIntroUnitIndex");
+  if (savedIntroIndex !== null) {
+    const idx = parseInt(savedIntroIndex, 10);
+    if (introUnitBank[idx]) {
+      currentIntroUnitIndex = idx;
+      courseData[0] = JSON.parse(JSON.stringify(introUnitBank[idx]));
+    }
+  }
+
   loadProgress();
   renderMenu();
-  loadUnit(0);
+  
+  // CORREÇÃO: Carrega a última unidade acessada pelo aluno (ou a 0 se for a primeira vez)
+  const lastUnit = localStorage.getItem("lastActiveUnit");
+  loadUnit(lastUnit ? parseInt(lastUnit) : 0);
   createBlackboardModal(); // Cria a estrutura do modal
   updateUserStats();
-
-  // Configuração do Menu Hambúrguer
-  const menuBtn = document.getElementById("menu-toggle");
-  if (menuBtn) {
-    menuBtn.addEventListener("click", () => {
-      document.body.classList.toggle("menu-hidden");
-    });
-  }
 
   // Fechar modal com ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeBlackboard();
   });
-  // Opcional: Começar com menu fechado em telas pequenas
-  if (window.innerWidth <= 768) {
-    document.body.classList.add("menu-hidden");
-  }
+  
   createTimerWidget(); // Inicia o widget do despertador
   createAudioPlayer(); // Inicia o widget de música
 }
@@ -1156,9 +1425,17 @@ function renderMenu() {
   nav.innerHTML = "";
   courseData.forEach((unit, index) => {
     const btn = document.createElement("button");
+    
+    // Classes Bootstrap para item de lista interativo
+    btn.className = "list-group-item list-group-item-action bg-transparent text-white border-0 py-3";
     btn.innerText = unit.title;
     btn.onclick = () => loadUnit(index);
-    if (index === currentUnitIndex) btn.classList.add("active");
+    
+    if (index === currentUnitIndex) {
+      btn.classList.add("active"); // Bootstrap aplica estilo azul padrão
+      btn.classList.add("fw-bold");
+    }
+    
     nav.appendChild(btn);
   });
 }
@@ -1172,13 +1449,16 @@ function updateProgress() {
 
 function loadUnit(index) {
   currentUnitIndex = index;
+  localStorage.setItem("lastActiveUnit", index); // Salva o estado para caso de refresh (F5)
   const unit = courseData[index];
   const content = document.getElementById("content-area");
 
   // Atualiza menu
-  const buttons = document.querySelectorAll("nav button");
-  buttons.forEach((b) => b.classList.remove("active"));
-  buttons[index].classList.add("active");
+  const buttons = document.querySelectorAll("#nav-menu button");
+  buttons.forEach((b) => b.classList.remove("active", "fw-bold"));
+  if (buttons[index]) {
+    buttons[index].classList.add("active", "fw-bold");
+  }
 
   updateProgress();
 
@@ -1187,16 +1467,20 @@ function loadUnit(index) {
   html += `<div class="theory-block">${unit.theory}</div>`;
   html += `<h2>Exercícios Práticos</h2>`;
 
-  // --- ALTERAÇÃO PARA UNIDADE 0: QUADRO NEGRO ---
+  // Instrução Geral (Adaptada para o estilo unificado)
   if (index === 0) {
     html += `<p style="margin-bottom:20px; color: #888;">Complete os códigos no Compilador do Quadro Negro.</p>`;
+  } else {
+    html += `<p style="margin-bottom:20px; color: #888;">Resolva os desafios abaixo utilizando o Compilador.</p>`;
+  }
 
+  // Renderização Unificada dos Exercícios (Estilo Quadro Negro para todos)
     unit.exercises.forEach((ex, i) => {
       const isDone = ex.completed;
       const statusClass = isDone ? "correct-container" : "";
       const btnText = isDone
-        ? "Revisar Código Compilado"
-        : "Abrir Quadro Negro & Compilar";
+        ? "Revisar Resposta"
+        : "Abrir Quadro Negro & Resolver";
       const btnColor = isDone
         ? "background-color: #28a745;"
         : "background-color: var(--accent);";
@@ -1204,69 +1488,41 @@ function loadUnit(index) {
       html += `<div class="exercise-card ${statusClass}" id="ex-card-${i}">`;
       html += `<h3>Desafio ${i + 1}: ${ex.question}</h3>`;
       html += `<div class="input-group">
-                    <button onclick="openBlackboard(${index}, ${i})" style="${btnColor} color: white; border: none; padding: 15px 30px; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: 'Consolas'; font-size: 1rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                    <button id="btn-open-bb-${i}" style="${btnColor} color: white; border: none; padding: 15px 30px; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: 'Consolas'; font-size: 1rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                         <span>💻</span> ${btnText}
                     </button>
                  </div>`;
-      html += `<div id="feedback-${i}" class="feedback" style="display:${isDone ? "block" : "none"};" class="${isDone ? "correct" : ""}">
-                    ${isDone ? '<span class="status-correct">Compilação bem sucedida!</span>' : ""}
+      html += `<div id="feedback-${i}" class="feedback" style="display:${isDone ? "block" : "none"};">
+                    ${isDone ? '<span class="status-correct">Desafio Concluído!</span>' : ""}
                  </div>`;
       html += `</div>`;
     });
 
-    // NOVO: Botão para atualizar o desafio
-    html += `
-        <div style="text-align: right; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
-            <button onclick="refreshIntroUnit()" class="btn-refresh-intro">
-                🔄 Gerar Novo Desafio de Introdução
-            </button>
-        </div>
-    `;
-
-    content.innerHTML = html;
-    return; // Encerra aqui para a Unidade 0
-  }
-  // -----------------------------------------------
-
-  unit.exercises.forEach((ex, i) => {
-    const completedClass = ex.completed ? " correct-container" : "";
-    const isDisabled = ex.completed ? "disabled" : "";
-    let showAnswerBtnHtml = "";
-    if (ex.incorrectAttempts >= 3 && !ex.completed) {
-      showAnswerBtnHtml = `<button class="btn-show-answer" onclick="showAnswer(${index}, ${i})">Mostrar Resposta</button>`;
-    }
-
-    html += `<div class="exercise-card${completedClass}" id="ex-card-${i}">`;
-    html += `<h3>Desafio ${i + 1} (${getExerciseTypeName(ex.type)})</h3>`;
-    html += `<p>${ex.question}</p>`;
-
-    // Renderiza input baseado no tipo
-    if (ex.type === "fill") {
-      const parts = ex.codeSnippet.split("___");
-      html += `<div class="code-fill">
-                        <code>${parts[0]}</code>
-                        <input type="text" id="input-${i}" style="width: 80px; display:inline-block;" ${isDisabled}>
-                        <code>${parts[1] || ""}</code>
-                        </div>`;
-    } else if (ex.type === "choice") {
-      html += `<select id="input-${i}" ${isDisabled}>
-                        <option value="">Selecione...</option>
-                        ${ex.options.map((opt) => `<option value="${opt}">${opt}</option>`).join("")}
-                        </select>`;
-    } else if (ex.type === "code") {
-      html += `<textarea id="input-${i}" placeholder="// Digite seu código C aqui..." ${isDisabled}></textarea>`;
-    }
-
-    html += `<div class="input-group">
-                    <button class="btn-check" id="btn-check-${i}" onclick="checkAnswer(${index}, ${i})" ${isDisabled}>Verificar Resposta</button>
-                    <span id="show-answer-container-${i}">${showAnswerBtnHtml}</span>
-                    </div>`;
-
-    html += `<div id="feedback-${i}" class="feedback"></div>`;
-    html += `</div>`;
-  });
+  // Botão de Atualização/Reset para TODAS as unidades
+  const btnLabel = index === 0 ? "Gerar Novo Desafio de Introdução" : "Gerar Novos Exercícios / Reiniciar";
+  
+  html += `
+      <div style="text-align: right; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
+          <button id="btn-refresh-unit" class="btn-refresh-intro">
+              🔄 ${btnLabel}
+          </button>
+      </div>
+  `;
 
   content.innerHTML = html;
+
+  // Adiciona event listeners programaticamente
+  unit.exercises.forEach((ex, i) => {
+    const btn = document.getElementById(`btn-open-bb-${i}`);
+    if (btn) {
+      btn.onclick = () => openBlackboard(index, i);
+    }
+  });
+  
+  const refreshBtn = document.getElementById('btn-refresh-unit');
+  if (refreshBtn) {
+    refreshBtn.onclick = () => refreshUnit(index);
+  }
 }
 
 function getExerciseTypeName(type) {
@@ -1276,129 +1532,38 @@ function getExerciseTypeName(type) {
   return "";
 }
 
-function refreshIntroUnit() {
-  // Escolhe um novo índice, diferente do atual
-  let newIndex;
-  do {
-    newIndex = Math.floor(Math.random() * introUnitBank.length);
-  } while (introUnitBank.length > 1 && newIndex === currentIntroUnitIndex);
+function refreshUnit(index) {
+  // Lógica Específica para Introdução (Troca de Banco de Questões)
+  if (index === 0) {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * introUnitBank.length);
+    } while (introUnitBank.length > 1 && newIndex === currentIntroUnitIndex);
 
-  currentIntroUnitIndex = newIndex;
-
-  // Pega uma cópia profunda dos dados da nova unidade para não modificar o original
-  const newUnitData = JSON.parse(JSON.stringify(introUnitBank[newIndex]));
-
-  // Adiciona o estado de progresso aos novos exercícios
-  newUnitData.exercises.forEach((ex) => {
+    currentIntroUnitIndex = newIndex;
+    localStorage.setItem("currentIntroUnitIndex", newIndex);
+    
+    // Carrega nova versão do banco
+    courseData[0] = JSON.parse(JSON.stringify(introUnitBank[newIndex]));
+  }
+  
+  // Lógica Geral (Resetar Progresso da Unidade Atual)
+  // Isso permite refazer os exercícios de qualquer unidade
+  const unit = courseData[index];
+  unit.exercises.forEach((ex) => {
     ex.completed = false;
     ex.incorrectAttempts = 0;
   });
-
-  // Substitui a unidade no array principal de dados do curso
-  courseData[0] = newUnitData;
-
-  // Recarrega a visualização da unidade e salva o novo estado (progresso zerado)
-  loadUnit(0);
+  
+  // Salva e Recarrega
   saveProgress();
+  loadUnit(index);
+  
+  // Feedback visual opcional
+  if (index !== 0) {
+      alert("Unidade reiniciada! Você pode praticar novamente.");
+  }
 }
-// Função Global para validar respostas
-window.checkAnswer = function (unitIdx, exIdx) {
-  const exercise = courseData[unitIdx].exercises[exIdx];
-  const inputEl = document.getElementById(`input-${exIdx}`);
-  const feedbackEl = document.getElementById(`feedback-${exIdx}`);
-  const cardEl = document.getElementById(`ex-card-${exIdx}`);
-
-  let userVal = inputEl.value.trim();
-  let isCorrect = false;
-
-  // Lógica de Validação
-  if (exercise.type === "fill") {
-    if (userVal === exercise.answer) isCorrect = true;
-  } else if (exercise.type === "choice") {
-    if (userVal === exercise.answer) isCorrect = true;
-  } else if (exercise.type === "code") {
-    // Validação "Soft" procurando palavras-chave
-    const missingKeywords = exercise.keywords.filter(
-      (k) => !userVal.includes(k),
-    );
-    if (missingKeywords.length === 0) isCorrect = true;
-  }
-
-  // Atualiza UI
-  feedbackEl.style.display = "block";
-  feedbackEl.className = "feedback " + (isCorrect ? "correct" : "incorrect");
-
-  // Atualiza cor do Container (Requisito: Verde/Vermelho no container)
-  cardEl.classList.remove("correct-container", "incorrect-container");
-  cardEl.classList.add(isCorrect ? "correct-container" : "incorrect-container");
-
-  if (isCorrect) {
-    // Adiciona XP apenas se o exercício ainda não foi completado
-    if (!exercise.completed) {
-      userXP += 25; // Ganha 25 XP por resposta correta
-      exercise.completed = true; // Marca o exercício como concluído
-      saveProgress();
-      updateUserStats();
-    }
-    feedbackEl.innerHTML = `<span class="status-correct">Correto!</span> Muito bem.`;
-    // Adiciona efeito de fogos de artifício
-    cardEl.classList.add("fireworks");
-    setTimeout(() => {
-      cardEl.classList.remove("fireworks");
-    }, 2000);
-  } else {
-    exercise.incorrectAttempts++;
-    if (exercise.incorrectAttempts >= 3 && !exercise.completed) {
-      const container = document.getElementById(
-        `show-answer-container-${exIdx}`,
-      );
-      if (container) {
-        container.innerHTML = `<button class="btn-show-answer" onclick="showAnswer(${unitIdx}, ${exIdx})">Mostrar Resposta</button>`;
-      }
-    }
-    saveProgress();
-
-    // Box de Gabarito Comentado
-    let msg = `<span class="status-incorrect">Gabarito Comentado:</span> <br>`;
-    msg += `<p style="margin-top:5px; margin-bottom:5px;">${exercise.feedback}</p>`;
-
-    if (exercise.type !== "code") {
-      msg += `<strong>Resposta Correta:</strong> <code>${exercise.answer}</code>`;
-    }
-    feedbackEl.innerHTML = msg;
-  }
-};
-
-window.showAnswer = function (unitIdx, exIdx) {
-  const exercise = courseData[unitIdx].exercises[exIdx];
-  const inputEl = document.getElementById(`input-${exIdx}`);
-  const feedbackEl = document.getElementById(`feedback-${exIdx}`);
-  const cardEl = document.getElementById(`ex-card-${exIdx}`);
-  const checkBtn = document.getElementById(`btn-check-${exIdx}`);
-  const showAnswerContainer = document.getElementById(
-    `show-answer-container-${exIdx}`,
-  );
-
-  exercise.completed = true;
-  saveProgress();
-
-  cardEl.classList.remove("incorrect-container");
-  cardEl.classList.add("correct-container");
-
-  feedbackEl.style.display = "block";
-  feedbackEl.className = "feedback correct";
-  let msg = `<span class="status-correct">Resposta Revelada:</span> <br>`;
-  msg += `<p style="margin-top:5px; margin-bottom:5px;">${exercise.feedback}</p>`;
-  if (exercise.type !== "code") {
-    msg += `<strong>Resposta Correta:</strong> <code>${exercise.answer}</code>`;
-  }
-  msg += `<p style="margin-top:10px; font-size: 0.8rem; opacity: 0.7;">Nenhum XP foi ganho por usar esta opção.</p>`;
-  feedbackEl.innerHTML = msg;
-
-  if (inputEl) inputEl.disabled = true;
-  if (checkBtn) checkBtn.disabled = true;
-  if (showAnswerContainer) showAnswerContainer.innerHTML = "";
-};
 
 // --- FUNÇÃO UTILITÁRIA PARA HIGHLIGHT NEON ---
 function highlightNeonCode(text) {
@@ -1423,26 +1588,45 @@ function createBlackboardModal() {
         <div class="blackboard-container">
             <div class="blackboard-header">
                 <span id="bb-title">Compilador C - Modo Dev</span>
-                <button onclick="closeBlackboard()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.5rem;">&times;</button>
-                <button onclick="window.location.href='Pagina_inicial.html'" style="background:#333; border:1px solid #555; color:#fff; cursor:pointer; font-size:0.9rem; padding: 5px 15px; border-radius: 4px;">Voltar</button>
+                <div>
+                    <button id="bb-back-btn-header" style="background:#333; border:1px solid #555; color:#fff; cursor:pointer; font-size:0.9rem; padding: 5px 15px; border-radius: 4px; margin-right: 10px;">Voltar</button>
+                    <button id="bb-close-btn" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.5rem;">&times;</button>
+                </div>
             </div>
             <div class="blackboard-content" id="bb-content">
                 <!-- Código injetado aqui -->
             </div>
             <div class="blackboard-footer">
-                <button onclick="window.location.href='Pagina_inicial.html'" style="margin-right: auto; background: transparent; border: 1px solid #444; color: #aaa; padding: 10px 15px; font-family: 'Consolas'; font-size: 0.9rem; cursor: pointer;">Voltar</button>
+                <button id="bb-back-btn-footer" style="margin-right: auto; background: transparent; border: 1px solid #444; color: #aaa; padding: 10px 15px; font-family: 'Consolas'; font-size: 0.9rem; cursor: pointer;">Voltar</button>
                 <button class="btn-compile" id="bb-compile-btn">COMPILAR & EXECUTAR >_</button>
+                <button class="btn-compile" id="bb-next-btn" style="display:none; background: var(--neon-keyword); margin-left: 15px;">PRÓXIMO >></button>
             </div>
         </div>
     </div>`;
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 
-  // Ao clicar fora do quadro (overlay), redirecionar para a página inicial
+  // Adiciona listeners para os botões do modal
+  document.getElementById('bb-close-btn').onclick = closeBlackboard;
+  
+  // CORREÇÃO: Botões "Voltar" agora apenas fecham o modal, sem recarregar a página
+  document.getElementById('bb-back-btn-header').onclick = closeBlackboard;
+  document.getElementById('bb-back-btn-footer').onclick = closeBlackboard;
+
+  // Botão "Próximo"
+  document.getElementById('bb-next-btn').onclick = () => {
+    if (courseData[currentBbUnit] && currentBbEx + 1 < courseData[currentBbUnit].exercises.length) {
+      openBlackboard(currentBbUnit, currentBbEx + 1);
+    } else {
+      closeBlackboard();
+    }
+  };
+
+  // Ao clicar fora do quadro (overlay), fecha o modal suavemente
   document
     .getElementById("blackboard-modal")
     .addEventListener("click", function (e) {
       if (e.target === this) {
-        window.location.href = "Pagina_inicial.html";
+        closeBlackboard();
       }
     });
 }
@@ -1450,13 +1634,17 @@ function createBlackboardModal() {
 let currentBbUnit = 0;
 let currentBbEx = 0;
 
-window.openBlackboard = function (unitIdx, exIdx) {
+function openBlackboard(unitIdx, exIdx) {
   currentBbUnit = unitIdx;
   currentBbEx = exIdx;
   const ex = courseData[unitIdx].exercises[exIdx];
   const modal = document.getElementById("blackboard-modal");
   const content = document.getElementById("bb-content");
   const btn = document.getElementById("bb-compile-btn");
+  const nextBtn = document.getElementById("bb-next-btn");
+
+  // Reset do botão Próximo
+  if (nextBtn) nextBtn.style.display = "none";
 
   // Prepara o conteúdo do quadro
   let codeDisplay = "";
@@ -1473,8 +1661,17 @@ window.openBlackboard = function (unitIdx, exIdx) {
       codeDisplay += `${highlightNeonCode(parts[1].replace(/</g, "&lt;").replace(/>/g, "&gt;"))}`;
     codeDisplay += `</span>`;
   } else if (ex.type === "code") {
-    codeDisplay += `<div style="color: #888; margin-bottom: 10px;">// ${ex.question}</div>`;
+    codeDisplay += `<div style="color: var(--neon-comment); margin-bottom: 10px;">// ${ex.question}</div>`;
     codeDisplay += `<textarea id="bb-input" class="blackboard-input" style="width:100%; height:150px; background:#050505;">${ex.completed ? localStorage.getItem(`bb-ans-${unitIdx}-${exIdx}`) || "" : ""}</textarea>`;
+  } else if (ex.type === "choice") {
+    codeDisplay += `<div style="color: var(--neon-comment); margin-bottom: 15px;">// ${ex.question}</div>`;
+    codeDisplay += `<div style="display: flex; flex-direction: column; gap: 10px;">`;
+    ex.options.forEach((opt, idx) => {
+        const checked = ex.completed && ex.answer === opt ? "checked" : "";
+        const disabled = ex.completed ? "disabled" : "";
+        codeDisplay += `<label style="color: var(--text-main); cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 10px; background: #1a1a1a; border: 1px solid #333; border-radius: 4px;"><input type="radio" name="bb-choice" value="${opt}" ${checked} ${disabled} style="accent-color: var(--accent);"> <span style="font-family: Consolas;">${opt}</span></label>`;
+    });
+    codeDisplay += `</div>`;
   }
 
   content.innerHTML = codeDisplay;
@@ -1499,11 +1696,11 @@ window.openBlackboard = function (unitIdx, exIdx) {
   }
 
   modal.classList.add("active");
-};
+}
 
-window.closeBlackboard = function () {
+function closeBlackboard() {
   document.getElementById("blackboard-modal").classList.remove("active");
-};
+}
 
 function runBlackboardCompiler() {
   const input = document.getElementById("bb-input");
@@ -1518,6 +1715,10 @@ function runBlackboardCompiler() {
   else if (ex.type === "code") {
     const missing = ex.keywords.filter((k) => !val.includes(k));
     if (missing.length === 0) isCorrect = true;
+  } else if (ex.type === "choice") {
+    const selected = document.querySelector('input[name="bb-choice"]:checked');
+    const userChoice = selected ? selected.value : "";
+    if (userChoice === ex.answer) isCorrect = true;
   }
 
   if (isCorrect) {
@@ -1527,6 +1728,11 @@ function runBlackboardCompiler() {
     setTimeout(() => {
       // Mostra o código completo preenchido como se o usuário tivesse escrito
       let fullCode = ex.codeSnippet.replace("___", val);
+      
+      if (ex.type === "choice") {
+          fullCode = `// Resposta selecionada:\n// ${ex.answer}\n// Opção Correta!`;
+      }
+
       simulateCompilationSuccess(contentDiv, fullCode);
 
       // Salva progresso
@@ -1542,27 +1748,28 @@ function runBlackboardCompiler() {
         // Atualiza a UI da lista principal
         loadUnit(currentBbUnit);
       }
-
-      // Adiciona efeito de fogos de artifício no quadro negro
-      const bbContainer = document.querySelector(".blackboard-container");
-      bbContainer.classList.add("fireworks");
-      setTimeout(() => {
-        bbContainer.classList.remove("fireworks");
-      }, 2000);
+      // Efeito de confete neon
+      startConfettiStorm();
+      playSuccessAudio(); // Toca a frase de sucesso
+      setTimeout(stopConfettiStorm, 3000);
     }, 800);
   } else {
     // Erro visual
+    input.classList.add("shake-animation"); // Feedback visual de erro
     input.style.borderColor = "red";
     input.style.boxShadow = "0 0 15px red";
-
-    const originalPlaceholder = input.placeholder;
-    input.value = "";
-    input.placeholder = "Erro de Sintaxe. Tente novamente.";
-    setTimeout(() => {
-      input.style.borderColor = "#444";
-      input.style.boxShadow = "none";
-      input.placeholder = originalPlaceholder;
-    }, 1500);
+    
+    if (input) {
+        const originalPlaceholder = input.placeholder;
+        input.value = "";
+        input.placeholder = "Erro de Sintaxe. Tente novamente.";
+        setTimeout(() => {
+          input.style.borderColor = "#444";
+          input.style.boxShadow = "none";
+          input.placeholder = originalPlaceholder;
+          input.classList.remove("shake-animation");
+        }, 1500);
+    }
   }
 }
 
@@ -1584,6 +1791,11 @@ function simulateCompilationSuccess(container, userValue, skipAnim) {
     .querySelector(".blackboard-container")
     .classList.add("neon-bg-success");
   document.getElementById("bb-compile-btn").style.display = "none";
+
+  // Mostra o botão Próximo se houver mais exercícios na unidade
+  if (courseData[currentBbUnit] && currentBbEx + 1 < courseData[currentBbUnit].exercises.length) {
+    document.getElementById("bb-next-btn").style.display = "block";
+  }
 }
 
 // --- WIDGET DE ÁUDIO (MÚSICA) ---
@@ -1594,7 +1806,7 @@ function createAudioPlayer() {
         <button id="audio-play" title="Tocar">▶</button>
         <button id="audio-pause" title="Pausar" style="display:none;">⏸</button>
         <input type="range" id="audio-vol-slider" min="0" max="1" step="0.1" value="0.5" title="Volume">
-        <audio id="bg-audio" loop>
+        <audio id="bg-audio" loop preload="none">
             <source src="videoplayback (1).m4a" type="audio/mp4">
             <source src="musica.m4a" type="audio/mp4">
         </audio>
@@ -1737,6 +1949,11 @@ function triggerAlarm() {
   pauseTimer();
   startConfettiStorm();
   document.getElementById("alarm-modal-overlay").classList.add("active");
+
+  // Interrompe a animação de confetes após 3 segundos
+  setTimeout(() => {
+    stopConfettiStorm();
+  }, 3000);
 }
 
 function closeAlarmPopup() {
@@ -1803,26 +2020,38 @@ function startConfettiStorm() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  // --- LÓGICA DE RESPONSIVIDADE ---
+  // Fator de escala baseado na largura da tela, com limites para não ficar nem muito grande, nem muito pequeno.
+  const scale = Math.max(0.5, Math.min(canvas.width / 1200, 1.2));
+
+  // Número de partículas é proporcional ao fator de escala.
+  const particleCount = Math.floor(400 * scale);
+
   const particles = [];
+  // Cores Neon
   const colors = [
-    "#FF0000",
-    "#00FF00",
-    "#0000FF",
-    "#FFFF00",
-    "#00FFFF",
-    "#FF00FF",
-    "#FFFFFF",
+    "#39FF14", // Verde Neon
+    "#FF00FF", // Magenta
+    "#00FFFF", // Ciano
+    "#FFFF00", // Amarelo
+    "#FF4500", // Laranja avermelhado
+    "#9D00FF", // Roxo Neon
+    "#FF1493", // Rosa choque
   ];
 
   // Criar partículas
-  for (let i = 0; i < 500; i++) {
-    particles.push(createParticle(canvas.width, canvas.height, colors));
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(createParticle(canvas.width, canvas.height, colors, false, scale));
   }
 
   function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particles.forEach((p) => {
+      // Efeito de brilho (glow)
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 15;
+
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate((p.rotation * Math.PI) / 180);
@@ -1840,6 +2069,9 @@ function startConfettiStorm() {
 
       ctx.restore();
 
+      // Reseta o brilho para não afetar outras partículas
+      ctx.shadowBlur = 0;
+
       // Física
       p.y += p.speedY;
       p.x += Math.sin(p.oscillation) * 2;
@@ -1850,7 +2082,7 @@ function startConfettiStorm() {
       if (p.y > canvas.height) {
         Object.assign(
           p,
-          createParticle(canvas.width, canvas.height, colors, true),
+          createParticle(canvas.width, canvas.height, colors, true, scale),
         );
       }
     });
@@ -1860,7 +2092,7 @@ function startConfettiStorm() {
   render();
 }
 
-function createParticle(w, h, colors, top = false) {
+function createParticle(w, h, colors, top = false, scale = 1) {
   const typeRand = Math.random();
   let type = "confetti"; // Quadrados
   if (typeRand > 0.7)
@@ -1872,10 +2104,10 @@ function createParticle(w, h, colors, top = false) {
     y: top ? -20 : Math.random() * h - h,
     type: type,
     color: colors[Math.floor(Math.random() * colors.length)],
-    size: Math.random() * 10 + 5,
-    w: Math.random() * 5 + 3,
-    h: Math.random() * 30 + 10,
-    speedY: Math.random() * 5 + 2,
+    size: (Math.random() * 10 + 5) * scale,
+    w: (Math.random() * 5 + 3) * scale,
+    h: (Math.random() * 30 + 10) * scale,
+    speedY: (Math.random() * 5 + 2) * scale,
     rotation: Math.random() * 360,
     rotationSpeed: (Math.random() - 0.5) * 10,
     oscillation: Math.random() * Math.PI * 2,
@@ -1886,6 +2118,19 @@ function stopConfettiStorm() {
   cancelAnimationFrame(confettiAnimId);
   const c = document.getElementById("confetti-canvas");
   if (c) c.remove();
+}
+
+// --- SINTETIZADOR DE VOZ (RESPOSTA CORRETA) ---
+function playSuccessAudio() {
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel(); // Interrompe falas anteriores para não encavalar
+    
+    const msg = new SpeechSynthesisUtterance("Resposta correta! Veja o próximo.");
+    msg.lang = "pt-BR"; // Define o idioma para Português do Brasil
+    msg.rate = 1.21;    // Velocidade corrigida para +10% (Base 1.1 -> 1.21)
+    
+    window.speechSynthesis.speak(msg);
+  }
 }
 
 // Inicializa

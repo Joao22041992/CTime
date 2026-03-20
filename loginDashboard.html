@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C-Time - Admin Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="imagenslogo.png" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+      .admin-glow {
+        filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6));
+      }
+    </style>
+  </head>
+  <body class="p-4">
+    <div class="w-full max-w-md text-center">
+      <!-- Logo e Título -->
+      <div class="mb-8">
+        <img
+          src="imagenslogo.png"
+          alt="Logo"
+          class="w-32 h-auto mx-auto mb-4 admin-glow"
+        />
+        <h1 class="text-3xl font-bold text-white tracking-tight">
+          Painel Administrativo
+        </h1>
+        <p class="text-blue-400 font-medium mt-2">
+          Acesso Restrito ao Monitoramento
+        </p>
+      </div>
+
+      <!-- Alerta de Mensagem -->
+      <div
+        id="msg-box"
+        class="hidden mb-6 p-4 rounded-xl text-sm font-medium border"
+      ></div>
+
+      <!-- Card de Login -->
+      <div class="glass-card rounded-3xl p-8">
+        <p class="text-gray-400 mb-8 text-sm">
+          Identifique-se para acessar as estatísticas dos alunos e usuários
+          ativos.
+        </p>
+
+        <button
+          id="btn-google-admin"
+          class="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-bold py-4 rounded-2xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-xl"
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            class="w-6 h-6"
+            alt="Google"
+          />
+          Acessar com Google
+        </button>
+
+        <div class="mt-8 pt-6 border-t border-white/10">
+          <a
+            href="index.html"
+            class="text-gray-500 hover:text-white text-sm transition-colors"
+          >
+            ← Voltar para a área do aluno
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import {
+        auth,
+        provider,
+        signInWithPopup,
+        db,
+      } from "./firebase-config.js";
+      import {
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const msgBox = document.getElementById("msg-box");
+      const btnGoogle = document.getElementById("btn-google-admin");
+      const emailAdm = "joaomateus89@gmail.com";
+
+      function showMsg(text, type = "error") {
+        msgBox.innerText = text;
+        msgBox.className = `mb-6 p-4 rounded-xl text-sm font-medium border block ${
+          type === "error"
+            ? "bg-red-500/10 text-red-400 border-red-500/20"
+            : "bg-green-500/10 text-green-400 border-green-500/20"
+        }`;
+      }
+
+      btnGoogle.addEventListener("click", async () => {
+        try {
+          btnGoogle.disabled = true;
+          btnGoogle.innerText = "Autenticando...";
+
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
+
+          if (user.email === emailAdm) {
+            showMsg("Acesso autorizado! Carregando dashboard...", "success");
+
+            // Inicia o redirecionamento imediatamente para não bloquear o usuário
+            setTimeout(() => {
+              window.location.href = "indexDashboard.html";
+            }, 1500);
+
+            // Envia o log de acesso em segundo plano (sem 'await')
+            addDoc(collection(db, "user_logs"), {
+              name: "ADMIN: " + user.displayName,
+              email: user.email,
+              loginTime: new Date().toLocaleString(),
+              timestamp: new Date(),
+            }).catch((e) => {
+              console.log("Falha ao registrar log de admin (não-crítico):", e);
+            });
+          } else {
+            showMsg("Acesso Negado! Este painel é restrito ao administrador.");
+            btnGoogle.disabled = false;
+            btnGoogle.innerHTML = `<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-6 h-6"> Acessar com Google`;
+            // Desloga o usuário intruso
+            auth.signOut();
+          }
+        } catch (error) {
+          console.error(error);
+          showMsg("Erro ao conectar: " + error.message);
+          btnGoogle.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

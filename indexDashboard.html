@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C-Time - Dashboard de Monitoramento</title>
+
+    <!-- OTIMIZAÇÃO DE CARREGAMENTO -->
+    <link
+      rel="preconnect"
+      href="https://firestore.googleapis.com"
+      crossorigin
+    />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+
+    <script type="module">
+      import { auth, provider, db } from "./firebase-config.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import {
+        collection,
+        query,
+        orderBy,
+        limit,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // O "Guarda da Porta" - Proteção da Página
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          // Manda para o login específico do dashboard
+          window.location.href = "loginDashboard.html";
+        } else {
+          // SÓ DEIXA ENTRAR SE FOR O SEU E-MAIL
+          const emailAdm = "joaomateus89@gmail.com";
+
+          if (user.email !== emailAdm) {
+            // FIX: Desloga o usuário antes de redirecionar para evitar Loop Infinito
+            signOut(auth).then(() => {
+                alert("Acesso Negado: Apenas administradores.");
+                window.location.href = "loginDashboard.html";
+            });
+          } else {
+            console.log("Bem-vindo, Administrador:", user.displayName);
+            document.getElementById("admin-name").innerText =
+              user.displayName || "Administrador";
+            loadUsersRealtime(); // Inicia o monitoramento
+          }
+        }
+      });
+
+      // Função de Logout
+      window.handleLogout = () => {
+        signOut(auth)
+          .then(() => {
+            window.location.href = "index.html";
+          })
+          .catch((error) => console.error("Erro ao sair:", error));
+      };
+
+      // Função de Monitoramento em Tempo Real (Firestore)
+      function loadUsersRealtime() {
+        const loadingMessage = document.getElementById("loading-message");
+        const tbody = document.getElementById("user-list");
+
+        // Cria a query para pegar os últimos 50 logins, ordenados por data
+        const q = query(
+          collection(db, "user_logs"),
+          orderBy("timestamp", "desc"),
+          limit(50),
+        );
+
+        // Escuta as mudanças no banco de dados em tempo real
+        onSnapshot(
+          q,
+          (snapshot) => {
+            tbody.innerHTML = ""; // Limpa a tabela
+
+            if (snapshot.empty) {
+              loadingMessage.textContent = "Nenhum registro encontrado.";
+              return;
+            }
+
+            loadingMessage.style.display = "none";
+
+            snapshot.forEach((doc) => {
+              const user = doc.data();
+              renderUserRow(user, tbody);
+            });
+          },
+          (error) => {
+            console.error("Erro ao buscar dados:", error);
+            loadingMessage.textContent = "Erro ao carregar dados do Firebase.";
+          },
+        );
+      }
+
+      function renderUserRow(user, tbody) {
+        const row = document.createElement("tr");
+        row.className = "border-b border-white/10";
+        // Simulação de status: Se o login foi há menos de 10 min, considera Online
+        const loginDate = user.timestamp ? user.timestamp.toDate() : new Date();
+        const now = new Date();
+        const diffMinutes = (now - loginDate) / 1000 / 60;
+        const isOnline = diffMinutes < 10;
+
+        row.innerHTML = `
+          <td class="p-4">${user.name}</td>
+          <td class="p-4">${user.email}</td>
+          <td class="p-4">
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full ${isOnline ? "bg-green-500 status-dot" : "bg-gray-500"}"></span>
+              <span>${isOnline ? "Online (Recente)" : "Offline"}</span>
+            </div>
+          </td>
+          <td class="p-4">${user.loginTime}</td>
+        `;
+        tbody.appendChild(row);
+      }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="imagenslogo.png" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .status-dot {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body class="text-gray-200 p-4 sm:p-6 md:p-8">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6"
+      >
+        <div>
+          <h1 class="text-3xl font-bold text-white">Painel de Monitoramento</h1>
+          <p class="text-blue-300 mt-1">Usuários ativos na plataforma</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0 items-center">
+          <!-- Aba de Login (Sessão do Usuário) -->
+          <div
+            class="flex items-center gap-3 bg-white/5 p-2 px-4 rounded-xl border border-white/10 backdrop-blur-sm shadow-xl"
+          >
+            <div class="text-right">
+              <p id="admin-name" class="text-white font-bold text-sm">
+                Carregando...
+              </p>
+              <p
+                class="text-blue-400 text-[10px] uppercase tracking-widest font-bold"
+              >
+                Administrador
+              </p>
+            </div>
+            <button
+              onclick="handleLogout()"
+              class="text-xs bg-red-500/20 hover:bg-red-500/40 text-red-100 border border-red-500/50 font-bold py-2 px-3 rounded-lg transition-all"
+            >
+              Sair
+            </button>
+          </div>
+
+          <a
+            href="Pagina_inicial.html"
+            class="text-sm bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all shadow-lg shadow-blue-900/40"
+          >
+            Voltar para o Curso
+          </a>
+        </div>
+      </div>
+
+      <!-- Card de Monitoramento -->
+      <div class="glass-card rounded-2xl shadow-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-white/10">
+              <tr>
+                <th class="p-4 font-semibold text-white">Nome</th>
+                <th class="p-4 font-semibold text-white">Email</th>
+                <th class="p-4 font-semibold text-white">Status</th>
+                <th class="p-4 font-semibold text-white">Última Atividade</th>
+              </tr>
+            </thead>
+            <tbody id="user-list">
+              <!-- Dados Fictícios -->
+              <tr class="border-b border-white/10">
+                <td class="p-4">João da Silva</td>
+                <td class="p-4">joao.silva@example.com</td>
+                <td class="p-4">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="h-3 w-3 rounded-full bg-green-500 status-dot"
+                    ></span>
+                    <span>Online</span>
+                  </div>
+                </td>
+                <td class="p-4">Agora mesmo</td>
+              </tr>
+              <tr class="border-b border-white/10">
+                <td class="p-4">Maria Oliveira</td>
+                <td class="p-4">maria.o@example.com</td>
+                <td class="p-4">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-gray-500"></span>
+                    <span>Offline</span>
+                  </div>
+                </td>
+                <td class="p-4">5 minutos atrás</td>
+              </tr>
+              <tr class="border-b border-white/10">
+                <td class="p-4">Carlos Pereira</td>
+                <td class="p-4">carlos.p@example.com</td>
+                <td class="p-4">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="h-3 w-3 rounded-full bg-green-500 status-dot"
+                    ></span>
+                    <span>Online</span>
+                  </div>
+                </td>
+                <td class="p-4">Agora mesmo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="loading-message" class="text-center text-white mt-4">
+        Carregando usuários...
+      </div>
+    </div>
+
+    <!-- Botão Flutuante de Histórico -->
+    <a
+      href="historico.html"
+      class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:shadow-purple-500/50 transition-all transform hover:scale-105 flex items-center gap-2 z-50 border border-purple-400/30"
+      title="Ver Histórico Completo"
+    >
+      <span class="text-xl">📜</span>
+      <span class="hidden sm:inline">Histórico de Acessos</span>
+    </a>
+  </body>
+</html>
